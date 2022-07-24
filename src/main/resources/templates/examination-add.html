@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+<body>
+
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+  <!--Add test form-->
+  <main class="p-5 bg-blur text-center my-main">
+    <h1 class="text-dark border-bottom">Add Test</h1>
+    <div class="d-flex justify-content-center">
+      <form th:action="@{/tests/add}"
+            th:method="post"
+            th:object="${medicalTestAddBindingModel}"
+            class="text-dark">
+        <div class="form-row m-5">
+          <!--TextBox-->
+          <div class="col">
+            <label for="name">Name</label>
+            <input th:field="*{name}"
+                   th:errorclass="is-invalid"
+                    name="name" id="name" type="text" class="form-control" placeholder="Name">
+            <small id="nameError" class="form-text bg-danger rounded invalid-feedback">Name must be between 3 and 20
+              characters</small>
+
+          </div>
+
+          <div class="col">
+            <label for="material">Material</label>
+            <input th:field="*{material}"
+                   th:errorclass="is-invalid"
+                   name="material" id="material" type="text" class="form-control" placeholder="Material">
+            <small id="materialError" class="form-text bg-danger rounded invalid-feedback">Material must be between 3 and 20
+              characters</small>
+
+          </div>
+
+          <div class="col mt-4">
+            <label for="category">Category</label>
+            <select th:field="*{category}"
+                    th:errorclass="is-invalid"
+                    name="category" id="category" class="custom-select">
+              <option value="" selected>Select category</option>
+              <option th:each="c : ${T(com.zhivkoproject.ZClinic.model.enums.CategoryEnum).values()}"
+                      th:value="${c}"
+                      th:text="${c}">
+              </option>
+            </select>
+            <small id="categoryError" class="form-text bg-danger rounded invalid-feedback">You must select
+              category</small>
+          </div>
+
+          <div class="col mt-4">
+            <label for="price">Price</label>
+            <input th:field="*{price}"
+                   th:errorclass="is-invalid"
+                   name="price" id="price" type="number" class="form-control" placeholder="Price">
+            <small id="priceError" class="form-text bg-danger rounded invalid-feedback">Price must be positive</small>
+          </div>
+
+          <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-primary btn-block w-50" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+
+
+<!-- Footer -->
+<footer th:replace="~{fragments/commons::footer}">
+</footer>
+
+</html>

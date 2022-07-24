@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+
+
+<body>
+
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+  <!--Info-->
+  <section class="p-5">
+    <div class="container">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md">
+          <img src="https://cdni.iconscout.com/illustration/premium/thumb/health-checkup-5097004-4268356.png"
+            class="img-fluid" alt="" />
+        </div>
+        <div class="col-md p-5">
+          <h2>MEDICAL TESTS AND PRICES</h2>
+          <p class="lead">
+            Medical tests can help detect a condition,
+            determine a diagnosis, plan treatment, check
+            to see if treatment is working, or monitor the
+            condition over time. A doctor may order these
+            tests as part of a routine checkup,
+            to check for certain diseases and disorders,
+            or to monitor your health.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Table with tests-->
+  <section class="p-5">
+
+    <!--Element-->
+    <div class="container">
+      <div class="bd-example">
+        <!--If admin/moderator-->
+        <div class="d-flex justify-content-left mt-4 mb-3">
+          <a href="/tests/add" class="btn btn-primary btn-block w-20" type="submit">
+            <i class="bi bi-plus-square">
+            </i></a>
+        </div>
+        <table class="table table-warning table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Test</th>
+              <th scope="col">Material</th>
+              <th scope="col">Price</th>
+              <th scope="col">Admin/Moderator/Doctor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--Element-->
+            <tr th:each="e: ${getAllMedicalTests}">
+              <th scope="row" th:text="*{e.id}"></th>
+              <td th:text="*{e.name}"></td>
+              <td th:text="*{e.material}"></td>
+              <td th:text="*{e.price}">$</td>
+              <td>
+                <a href="#" class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                  <i class="bi bi-pen"></i>
+                </a>
+                <a href="#" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                  <i class="bi bi-trash"></i>
+                </a>
+                <a href="#" class="btn btn-primary" sec:authorize="isAuthenticated()">
+                 Buy
+                </a>
+              </td>
+            </tr>
+
+
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+<!-- Footer -->
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</html>
