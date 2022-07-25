@@ -26,6 +26,7 @@ public class SecurityConfiguration {
                 antMatchers("/", "/users/login", "/users/register", "/tests").permitAll().
                         antMatchers("/css/**", "/images/**").permitAll().
                         antMatchers("/user-photos/**").authenticated().
+                        antMatchers("/cart").authenticated().
 
                 //antMatchers("/users").hasAnyRole("ROLE_ADMIN", "ROLE_MODERATOR", "ROLE_DOCTOR").
                 //antMatchers("/users/edit").hasAnyRole("ROLE_ADMIN", "ROLE_MODERATOR").

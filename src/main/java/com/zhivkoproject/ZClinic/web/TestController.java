@@ -35,7 +35,7 @@ public class TestController {
                         Model model){
 
         List<MedicalTestServiceModel> getAllTests = testService.getAllMedicalTests();
-        UserRole admin = new UserRole();
+       /* UserRole admin = new UserRole();
         admin.setUserRole(UserRoleEnum.ADMIN);
 
         UserRole moderator = new UserRole();
@@ -43,7 +43,7 @@ public class TestController {
 
         UserRole doctor = new UserRole();
         doctor.setUserRole(UserRoleEnum.DOCTOR);
-
+*/
         model.addAttribute("getAllMedicalTests", getAllTests);
 
 

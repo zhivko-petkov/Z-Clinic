@@ -6,16 +6,16 @@ import java.math.BigDecimal;
 @Table
 @Entity(name = "results")
 public class Result extends BaseEntity{
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Test test;
 
     @Column(nullable = true)
     private BigDecimal result;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User user;
 
     public Result() {

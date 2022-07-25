@@ -17,7 +17,7 @@ public class Order extends BaseEntity{
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Cart cart;
 
     @OneToMany

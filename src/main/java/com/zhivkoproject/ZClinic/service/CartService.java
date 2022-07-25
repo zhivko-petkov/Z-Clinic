@@ -1,11 +1,13 @@
 package com.zhivkoproject.ZClinic.service;
 
+import com.zhivkoproject.ZClinic.model.service.CartServiceModel;
 import com.zhivkoproject.ZClinic.model.service.MedicalTestServiceModel;
-
-import java.util.List;
+import com.zhivkoproject.ZClinic.model.service.UserServiceModel;
 
 public interface CartService {
-    void addMedicalTestsInCart(List<MedicalTestServiceModel> medicalTestServiceModels);
-    void removeMedicalTestFromCart(MedicalTestServiceModel medicalTestServiceModel);
+    void addMedicalTestsInCart(Long medicalTestId, String username);
 
+    CartServiceModel findCartByUser(String username);
+
+    void deleteMedicalTestInCart(Long id, String name);
 }

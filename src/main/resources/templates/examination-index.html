@@ -71,7 +71,7 @@
                 <a href="#" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN')">
                   <i class="bi bi-trash"></i>
                 </a>
-                <a href="#" class="btn btn-primary" sec:authorize="isAuthenticated()">
+                <a th:href="@{/cart/add/{id}(id = *{e.id})}" class="btn btn-primary" sec:authorize="isAuthenticated()">
                  Buy
                 </a>
               </td>
