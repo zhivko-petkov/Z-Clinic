@@ -10,4 +10,8 @@ public interface CartService {
     CartServiceModel findCartByUser(String username);
 
     void deleteMedicalTestInCart(Long id, String name);
+
+    void makeOrder(Long id, String name);
+
+    void removeCart(Long id, String name);
 }

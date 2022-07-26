@@ -99,9 +99,11 @@
                                 </div>
 
                                 <hr class="mb-4">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to
-                                    checkout</button>
+
                     </form>
+                    <a th:href="@{/cart/order/{id}(id = *{userCart.id})}" class="btn btn-primary" sec:authorize="isAuthenticated()">
+                        Order
+                    </a>
                 </div>
             </div>
         </div>

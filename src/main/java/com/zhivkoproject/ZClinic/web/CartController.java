@@ -61,6 +61,14 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @GetMapping("/order/{id}")
+    public String order(@PathVariable Long id, Principal principal) {
+        cartService.makeOrder(id, principal.getName());
+        cartService.removeCart(id, principal.getName());
+
+        return "redirect:/";
+    }
+
 
 
    // @PostMapping()

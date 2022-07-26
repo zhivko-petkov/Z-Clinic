@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "orders")
 public class Order extends BaseEntity{
     @ManyToOne
-    private User owner;
+    private User user;
 
     @Column(name = "created_on", nullable = false)
     private LocalDateTime createdOn;
@@ -17,21 +17,20 @@ public class Order extends BaseEntity{
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    @ManyToOne(optional = false)
-    private Cart cart;
-
     @OneToMany
     private List<Result> results;
+
+    private boolean isPaid;
 
     public Order() {
     }
 
-    public User getOwner() {
-        return owner;
+    public boolean isPaid() {
+        return isPaid;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setPaid(boolean paid) {
+        isPaid = paid;
     }
 
     public LocalDateTime getCreatedOn() {
@@ -50,19 +49,19 @@ public class Order extends BaseEntity{
         this.totalPrice = totalPrice;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
     public List<Result> getResults() {
         return results;
     }
 
     public void setResults(List<Result> results) {
         this.results = results;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

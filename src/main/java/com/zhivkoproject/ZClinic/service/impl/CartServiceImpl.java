@@ -1,16 +1,14 @@
 package com.zhivkoproject.ZClinic.service.impl;
 
-import com.zhivkoproject.ZClinic.model.entity.Cart;
-import com.zhivkoproject.ZClinic.model.entity.Test;
+import com.zhivkoproject.ZClinic.model.entity.*;
 import com.zhivkoproject.ZClinic.model.service.CartServiceModel;
-import com.zhivkoproject.ZClinic.model.service.MedicalTestServiceModel;
-import com.zhivkoproject.ZClinic.repository.CartRepository;
-import com.zhivkoproject.ZClinic.repository.TestRepository;
-import com.zhivkoproject.ZClinic.repository.UserRepository;
+import com.zhivkoproject.ZClinic.repository.*;
 import com.zhivkoproject.ZClinic.service.CartService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +17,17 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final TestRepository testRepository;
     private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final ResultRepository resultRepository;
+
     private final ModelMapper modelMapper;
 
-    public CartServiceImpl(CartRepository cartRepository, TestRepository testRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public CartServiceImpl(CartRepository cartRepository, TestRepository testRepository, UserRepository userRepository, OrderRepository orderRepository, ResultRepository resultRepository, ModelMapper modelMapper) {
         this.cartRepository = cartRepository;
         this.testRepository = testRepository;
         this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
+        this.resultRepository = resultRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -44,8 +47,8 @@ public class CartServiceImpl implements CartService {
             testInCart.add(addedTest);
             cart.setTests(testInCart);
             //check
-            cart.setBuyer(userRepository.findByUsername(username).orElse(null));
-            cart.setCreatedBy(userRepository.findByUsername(username).orElse(null));
+            cart.setUser(userRepository.findByUsername(username).orElse(null));
+            //cart.setCreatedBy(userRepository.findByUsername(username).orElse(null));
         }
 
         cartRepository.save(cart);
@@ -72,5 +75,55 @@ public class CartServiceImpl implements CartService {
         cart.setTests(testInCart);
 
         cartRepository.save(cart);
+    }
+
+    @Override
+    public void makeOrder(Long cartId, String username) {
+        Cart cart = cartRepository.findByCreatedByUsername(username).orElse(null);
+        User user = userRepository.findByUsername(username).orElse(null);
+
+        if(cart != null){
+            Order order = new Order();
+            //order.setCart(cart);
+            order.setCreatedOn(LocalDateTime.now());
+            order.setUser(user);
+
+
+            BigDecimal totalSum = new BigDecimal(0);
+            for (Test test : cart.getTests()) {
+                totalSum = totalSum.add(test.getPrice());
+            }
+            order.setTotalPrice(totalSum);
+
+            //check in PAYMENT SERVICE
+            order.setPaid(true);
+
+            orderRepository.save(order);
+
+
+            List<Order> addedOrders = orderRepository.findOrdersByUserId(user.getId());
+            Order newOrder = addedOrders.get(addedOrders.size()-1);
+
+            List<Result> resultList = new ArrayList<>();
+            for (Test test : cart.getTests()) {
+                Result currentResult = new Result();
+                currentResult.setTest(test);
+                currentResult.setUser(user);
+                currentResult.setOrder(newOrder);
+                resultRepository.save(currentResult);
+            }
+
+            List<Result> newResults = resultRepository.findResultByOrder_Id(newOrder.getId());
+            newOrder.setResults(newResults);
+            orderRepository.save(newOrder);
+
+        }
+    }
+
+    @Override
+    public void removeCart(Long cartId, String username) {
+        Cart cart = cartRepository.findByCreatedByUsername(username).orElse(null);
+        cartRepository.delete(cart);
+        //cartRepository.delete(cart);
     }
 }

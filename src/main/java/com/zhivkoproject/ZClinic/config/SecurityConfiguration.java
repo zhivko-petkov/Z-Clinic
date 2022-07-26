@@ -21,8 +21,9 @@ public class SecurityConfiguration {
                 authorizeRequests().
                 //everyone can download static resources (css, js, images)
                 //vnimavai tuk, papkata trqbva da se kazva images
-                        antMatchers("/users/").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
+                        antMatchers("/users", "/users/").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
                 antMatchers("/users/add", "/tests/add", "/tests/edit").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
+                antMatchers("/users/edit/**" ).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')").
                 antMatchers("/", "/users/login", "/users/register", "/tests").permitAll().
                         antMatchers("/css/**", "/images/**").permitAll().
                         antMatchers("/user-photos/**").authenticated().
