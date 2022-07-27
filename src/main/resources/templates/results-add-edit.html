@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+
+<body>
+
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+
+  <!--ADD/EDIT RESULT-->
+  <main class="p-5 bg-blur text-center my-main">
+    <h1 class="text-dark border-bottom">Add Result On Current User</h1>
+    <div class="d-flex justify-content-center">
+      <form th:action="@{/result/save}"
+            th:object="${form}"
+            method="post"
+            class="text-dark">
+        <div class="form-row m-5">
+          <!--TextBox-->
+          <!--FOREACH TEST-->
+          <div th:each="res, itemStat: *{resultsAdd}" class="col">
+            <input th:field="*{resultsAdd[__${itemStat.index}__].id}"
+                   th:value="*{resultsAdd[__${itemStat.index}__].getId()}"
+                   type="hidden"
+                   class="form-control">
+
+            <label th:text="${res.getTest().name}"></label>
+            <input th:field="*{resultsAdd[__${itemStat.index}__].result}"
+                   type="number" class="form-control">
+            <small class="form-text bg-danger rounded invalid-feedback">Result must be positive decimal</small>
+
+          </div>
+
+
+          <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-primary btn-block w-50" type="submit">Save</button>
+          </div>
+        </div>
+      </form>
+
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+
+<!-- Footer -->
+<footer th:replace="~{fragments/commons::footer}">
+</footer>
+
+</html>

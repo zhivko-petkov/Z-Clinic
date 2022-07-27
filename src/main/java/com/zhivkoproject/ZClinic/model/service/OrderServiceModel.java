@@ -17,7 +17,17 @@ public class OrderServiceModel {
 
     private boolean isPaid;
 
+    private boolean isReady;
+
     public OrderServiceModel() {
+    }
+
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 
     public UserServiceModel getUser() {
@@ -56,7 +66,16 @@ public class OrderServiceModel {
         return isPaid;
     }
 
+
     public void setPaid(boolean paid) {
         isPaid = paid;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

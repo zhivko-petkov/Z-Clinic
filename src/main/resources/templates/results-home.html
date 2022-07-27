@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+
+
+<body>
+
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+
+
+<div>
+
+    <!--Table with results-->
+    <section class="p-5">
+
+        <!--Element-->
+        <div class="container">
+            <div class="bd-example">
+                <!--If admin/moderator-->
+                <div class="d-flex justify-content-left mt-4 mb-3">
+                    <a href="results/add" class="btn btn-primary btn-block w-20" type="submit">
+                        <i class="bi bi-plus-square">
+                        </i></a>
+                </div>
+                <table class="table table-warning table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Test</th>
+                        <th scope="col">Result</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--Element-->
+                    <tr th:each="r: ${resultsOrder}">
+                        <th scope="row" th:text="*{r.id}"></th>
+                        <td th:text="*{r.getTest().name}"></td>
+                        <td th:text="*{r.getResult()}"></td>
+                    </tr>
+
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+
+<!-- Footer -->
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</html>

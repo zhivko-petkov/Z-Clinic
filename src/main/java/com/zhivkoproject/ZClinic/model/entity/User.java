@@ -28,7 +28,7 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     @ManyToMany(fetch = FetchType.EAGER)

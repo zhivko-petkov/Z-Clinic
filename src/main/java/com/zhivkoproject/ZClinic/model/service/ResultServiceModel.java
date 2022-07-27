@@ -32,5 +32,11 @@ public class ResultServiceModel {
         this.result = result;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

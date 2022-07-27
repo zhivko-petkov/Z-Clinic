@@ -30,8 +30,6 @@ public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
 
-
-
     @Autowired
     public UserController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
@@ -73,28 +71,6 @@ public class UserController {
     public String login() {
         return "login";
     }
-
-   /*
-    @PostMapping("/login")
-    */
-   /* public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-
-            return "redirect:login";
-        }
-
-        //boolean userExists = userService.userExist(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
-        /*UserServiceModel checkUser = userService.findByUsernameAndPassword(userLoginBindingModel.getUsername(),
-                userLoginBindingModel.getPassword());*/
-
-       /* userService.loginUser(userLoginBindingModel);
-        return "redirect:/";
-    }
-    */
 
     @ModelAttribute
     public UserEditBindingModel userServiceModel(){
@@ -162,6 +138,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errorOldPassword", true);
             return "redirect:/users/profile/changePassword";
         }
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userChangePasswordBindingModel", userChangePasswordBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userChangePasswordBindingModel",
@@ -230,7 +207,7 @@ public class UserController {
     public String delete(@PathVariable Long id, Principal principal){
         userService.deleteUser(id);
 
-        return "redirect:/users/";
+        return "redirect:/users";
     }
 
 
@@ -274,7 +251,7 @@ public class UserController {
 
         userService.editUserImage(userEditBindingModel);
 
-        return "redirect:/users/";
+        return "redirect:/users";
     }
 
 

@@ -1,5 +1,8 @@
 package com.zhivkoproject.ZClinic.model.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,10 +20,12 @@ public class Order extends BaseEntity{
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Result> results;
 
     private boolean isPaid;
+
+    private boolean isReady;
 
     public Order() {
     }
@@ -63,5 +68,13 @@ public class Order extends BaseEntity{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 }
