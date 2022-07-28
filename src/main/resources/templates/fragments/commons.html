@@ -21,7 +21,7 @@
 
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-primary navbar-primary">
     <div class="container">
-        <a href="#" class="navbar-brand text-light"><strong>Z-Clinic</strong></a>
+        <a href="/" class="navbar-brand text-light"><strong>Z-Clinic</strong></a>
 
         <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navigation-menu">
@@ -38,16 +38,8 @@
                 <li class="nav-item">
                     <a href="/news" class="nav-link text-light">News</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMedicalTests" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Medical Tests
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMedicalTests">
-                        <li><a class="dropdown-item" href="/tests">Biochemical</a></li>
-                        <li><a class="dropdown-item" href="#">Hematology</a></li>
-                        <li><a class="dropdown-item" href="#">Virology</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a href="/tests" class="nav-link text-light">Medical Tests</a>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownAdmin" role="button"
@@ -55,20 +47,20 @@
                         Admin
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
-                        <li><a class="dropdown-item" href="#">Users</a></li>
-                        <li><a class="dropdown-item" href="#">Tests</a></li>
-                        <li><a class="dropdown-item" href="#">News</a></li>
-                        <li><a class="dropdown-item" href="#">Orders</a></li>
+                        <li><a class="dropdown-item" href="/users">Users</a></li>
+                        <li><a class="dropdown-item" href="/tests">Tests</a></li>
+                        <li><a class="dropdown-item" href="/news">News</a></li>
+                        <li><a class="dropdown-item" href="/orders">Orders</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR')">
+                <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR') || hasRole('DOCTOR')">
                     <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownModerator" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Moderator
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownModerator">
-                        <li><a class="dropdown-item" href="#">Users</a></li>
-                        <li><a class="dropdown-item" href="#">Orders</a></li>
+                        <li><a class="dropdown-item" href="/users">Users</a></li>
+                        <li><a class="dropdown-item" href="/orders">Orders</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasRole('DOCTOR')">
@@ -82,10 +74,10 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#questions" class="nav-link text-light">Questions</a>
+                    <a href="/questions" class="nav-link text-light">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#about" class="nav-link text-light">About</a>
+                    <a href="/about" class="nav-link text-light">About</a>
                 </li>
             </ul>
 
@@ -99,7 +91,7 @@
                 </li>
 
                 <!-- Avatar -->
-                <div class="dropdown" sec:authorize="isAuthenticated()">
+                <div class="dropdown" >
                     <a
                             class="nav-link dropdown-toggle text-light"
                             href="#"

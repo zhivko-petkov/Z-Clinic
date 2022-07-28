@@ -171,4 +171,16 @@ public class OrderServiceImpl implements OrderService {
 
 
     }
+
+    @Override
+    public void deleteResultInOrders(Long id) {
+        List<Result> results = resultRepository.findByTestId(id);
+
+        for (Result result : results) {
+            resultRepository.delete(result);
+        }
+
+
+
+    }
 }

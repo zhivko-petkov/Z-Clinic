@@ -126,4 +126,24 @@ public class CartServiceImpl implements CartService {
         cartRepository.delete(cart);
         //cartRepository.delete(cart);
     }
+
+    @Override
+    public void deleteTest(Long id) {
+        List<Cart> cartList = cartRepository.findAll();
+        Test test = testRepository.findById(id).orElse(null);
+        for (Cart cart : cartList) {
+            if (cart.getTests().contains(test)){
+                List<Test> testList = cart.getTests();
+                int indexOf = 0;
+                for (int i = 0; i < testList.size(); i++) {
+                    if (testList.get(i).getId() == id){
+                        indexOf = i;
+                    }
+                }
+                testList.remove(indexOf);
+                cart.setTests(testList);
+                cartRepository.save(cart);
+            }
+        }
+    }
 }

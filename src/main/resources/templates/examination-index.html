@@ -57,7 +57,7 @@
               <th scope="col">Test</th>
               <th scope="col">Material</th>
               <th scope="col">Price</th>
-              <th scope="col">Admin/Moderator/Doctor</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -68,10 +68,10 @@
               <td th:text="*{e.material}"></td>
               <td th:text="*{e.price}">$</td>
               <td>
-                <a href="#" class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                <a th:href="@{/tests/edit/{id}(id = *{e.id})}" class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
                   <i class="bi bi-pen"></i>
                 </a>
-                <a href="#" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                <a th:href="@{/tests/delete/{id}(id = *{e.id})}" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN')">
                   <i class="bi bi-trash"></i>
                 </a>
                 <a th:href="@{/cart/add/{id}(id = *{e.id})}" class="btn btn-primary" sec:authorize="isAuthenticated()">

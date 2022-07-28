@@ -14,4 +14,12 @@ public interface TestService {
     int getCovidNationalCases() throws IOException, InterruptedException;
 
     int getTotalCovidNationalCases() throws IOException, InterruptedException;
+
+    void deleteTest(Long id);
+
+    MedicalTestServiceModel findTestById(Long id);
+
+    void editTest(MedicalTestAddBindingModel medicalTestEditBindingModel, Long id, String username);
+
+    boolean isUniqueName(String name);
 }

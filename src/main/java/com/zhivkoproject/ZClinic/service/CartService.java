@@ -14,4 +14,6 @@ public interface CartService {
     void makeOrder(Long id, String name);
 
     void removeCart(Long id, String name);
+
+    void deleteTest(Long id);
 }

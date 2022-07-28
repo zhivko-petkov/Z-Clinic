@@ -4,6 +4,7 @@ import com.zhivkoproject.ZClinic.model.entity.Category;
 import com.zhivkoproject.ZClinic.model.enums.CategoryEnum;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -14,13 +15,15 @@ public class MedicalTestAddBindingModel {
     @Size(min = 3)
     private String name;
 
+    @NotNull
     private CategoryEnum category;
 
-    @NotEmpty
+    @NotNull
     @Size(min = 3)
     private String material;
 
     @Positive
+    @NotNull
     private BigDecimal price;
 
     private String addedByUsername;

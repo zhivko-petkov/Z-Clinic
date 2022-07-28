@@ -18,7 +18,7 @@ public class Test extends BaseEntity{
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User addedBy;
 
     public Test() {

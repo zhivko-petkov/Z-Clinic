@@ -12,4 +12,6 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
     @Query("select r from results r where r.order.id = ?1")
     List<Result> findResultByOrder_Id(Long id);
 
+
+    List<Result> findByTestId(Long id);
 }

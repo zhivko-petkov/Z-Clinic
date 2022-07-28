@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 @Table
 @Entity(name = "results")
 public class Result extends BaseEntity{
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Test test;
 
     @Column(nullable = true)
     private BigDecimal result;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Order order;
 
     @ManyToOne(optional = false)

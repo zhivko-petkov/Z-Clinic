@@ -108,6 +108,37 @@ public class TestServiceImpl implements TestService {
 
     }
 
+    @Override
+    public void deleteTest(Long id) {
+        testRepository.deleteById(id);
+    }
+
+    @Override
+    public MedicalTestServiceModel findTestById(Long id) {
+        Test test = testRepository.findById(id).orElse(null);
+        MedicalTestServiceModel medicalTestServiceModel = modelMapper.map(test, MedicalTestServiceModel.class);
+
+        return medicalTestServiceModel;
+    }
+
+    @Override
+    public void editTest(MedicalTestAddBindingModel medicalTestEditBindingModel, Long id, String username) {
+        Test test = modelMapper.map(medicalTestEditBindingModel, Test.class);
+        test.setId(id);
+        test.setCategory(categoryService.findCategory(medicalTestEditBindingModel.getCategory()));
+
+        test.setAddedBy(modelMapper.map(userService.findUser(username), User.class));
+        testRepository.save(test);
+    }
+
+    @Override
+    public boolean isUniqueName(String name) {
+        Test test = testRepository.findByName(name).orElse(null);
+        if (test != null){
+            return false;
+        }
+        return true;
+    }
 
 
 }

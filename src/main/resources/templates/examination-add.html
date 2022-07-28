@@ -24,8 +24,9 @@
             <input th:field="*{name}"
                    th:errorclass="is-invalid"
                     name="name" id="name" type="text" class="form-control" placeholder="Name">
-            <small id="nameError" class="form-text bg-danger rounded invalid-feedback">Name must be between 3 and 20
+            <small id="nameError" class="form-text bg-danger text-light rounded invalid-feedback">Name must be minimum 3
               characters</small>
+            <small th:if="${isTestNameUnique == false}" class="form-text bg-danger text-light rounded">Name must be unique.</small>
 
           </div>
 
@@ -34,8 +35,7 @@
             <input th:field="*{material}"
                    th:errorclass="is-invalid"
                    name="material" id="material" type="text" class="form-control" placeholder="Material">
-            <small id="materialError" class="form-text bg-danger rounded invalid-feedback">Material must be between 3 and 20
-              characters</small>
+            <small id="materialError" class="form-text bg-danger text-light rounded invalid-feedback">Material must be minimum 3 characters</small>
 
           </div>
 
@@ -50,7 +50,7 @@
                       th:text="${c}">
               </option>
             </select>
-            <small id="categoryError" class="form-text bg-danger rounded invalid-feedback">You must select
+            <small id="categoryError" class="form-text bg-danger text-light rounded invalid-feedback">You must select
               category</small>
           </div>
 
@@ -58,8 +58,8 @@
             <label for="price">Price</label>
             <input th:field="*{price}"
                    th:errorclass="is-invalid"
-                   name="price" id="price" type="number" class="form-control" placeholder="Price">
-            <small id="priceError" class="form-text bg-danger rounded invalid-feedback">Price must be positive</small>
+                   name="price" id="price" type="number" step="any" class="form-control" placeholder="Price">
+            <small id="priceError" class="form-text bg-danger text-light rounded invalid-feedback">Price must be positive</small>
           </div>
 
           <div class="d-flex justify-content-center mt-4">

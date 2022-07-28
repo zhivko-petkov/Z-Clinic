@@ -62,11 +62,11 @@
                     <!--Admin/Moderator/Doctor-->
                     <td>
 
-                        <a href="#" class="btn btn-primary" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                        <a th:href="@{/result/order/{id}(id = *{o.id})}" class="btn btn-primary" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
                             <i class="bi bi-eye"></i>
                         </a>
 
-                        <a href="#" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/result/order/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">
                             <i class="bi bi-trash"></i>
                         </a>
                     </td>
