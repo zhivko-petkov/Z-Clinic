@@ -46,7 +46,7 @@
                     <select th:field="*{category}"
                             th:value="*{getCategory().name()}"
                             th:errorclass="is-invalid"
-                            name="category" id="category" class="custom-select">
+                            name="category" id="category" class="custom-select form-control">
                         <option value="" selected>Select category</option>
                         <option th:each="c : ${T(com.zhivkoproject.ZClinic.model.enums.CategoryEnum).values()}"
                                 th:value="${c}"

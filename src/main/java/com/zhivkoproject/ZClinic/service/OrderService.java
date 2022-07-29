@@ -1,5 +1,6 @@
 package com.zhivkoproject.ZClinic.service;
 
+import com.zhivkoproject.ZClinic.model.binding.OrderAddBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.ResultAddBindingModel;
 import com.zhivkoproject.ZClinic.model.service.OrderServiceModel;
 import com.zhivkoproject.ZClinic.model.service.ResultServiceModel;
@@ -18,4 +19,6 @@ public interface OrderService {
     void deleteOrder(Long id);
 
     void deleteResultInOrders(Long id);
+
+    void addOrder(OrderAddBindingModel orderAddBindingModel);
 }

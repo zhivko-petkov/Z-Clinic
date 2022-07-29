@@ -72,6 +72,7 @@
                                    th:errorclass="is-invalid">
                             <small id="emailError" class="text-light form-text bg-danger rounded invalid-feedback">Enter valid
                                 email</small>
+                            <small th:if="${isEmailUnique == false}" class="text-light form-text bg-danger rounded">Email exists.</small>
                         </div>
 
                     </div>

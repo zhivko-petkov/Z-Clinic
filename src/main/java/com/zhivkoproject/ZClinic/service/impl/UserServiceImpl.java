@@ -206,12 +206,11 @@ public class UserServiceImpl implements UserService {
         this.userRepository.save(newUser);
     }
 
+    //edited 11:37
     @Override
     public void deleteUser(Long id) {
         User user = userRepository.findById(id).orElse(null);
-        for (Order order : user.getOrders()) {
-            orderRepository.delete(order);
-        }
+
         this.userRepository.delete(user);
     }
 
@@ -226,6 +225,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserServiceModel findUserByEmail(String email) {
         return modelMapper.map(userRepository.findByEmail(email), UserServiceModel.class);
+    }
+
+    @Override
+    public boolean checkUsernameExists(String username) {
+
+        User user = userRepository.findByUsername(username).orElse(null);
+        if(user != null){
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean checkEmailExists(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        if(user != null){
+            return false;
+        }
+
+        return true;
     }
 
 

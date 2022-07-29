@@ -5,6 +5,7 @@ import com.zhivkoproject.ZClinic.model.enums.UserRoleEnum;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class UserAddBindingModel {
     @Size(min = 5)
     private String confirmPassword;
 
+    @NotNull
     private UserRoleEnum role;
 
     public UserAddBindingModel() {

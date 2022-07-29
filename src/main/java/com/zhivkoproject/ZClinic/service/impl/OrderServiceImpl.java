@@ -1,5 +1,6 @@
 package com.zhivkoproject.ZClinic.service.impl;
 
+import com.zhivkoproject.ZClinic.model.binding.OrderAddBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.ResultAddBindingModel;
 import com.zhivkoproject.ZClinic.model.entity.Order;
 import com.zhivkoproject.ZClinic.model.entity.Result;
@@ -181,6 +182,11 @@ public class OrderServiceImpl implements OrderService {
         }
 
 
+
+    }
+
+    @Override
+    public void addOrder(OrderAddBindingModel orderAddBindingModel) {
 
     }
 }

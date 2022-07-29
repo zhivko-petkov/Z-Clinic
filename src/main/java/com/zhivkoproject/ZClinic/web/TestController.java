@@ -109,7 +109,6 @@ public class TestController {
     public String delete(@PathVariable Long id,
                          Principal principal){
 
-        orderService.deleteResultInOrders(id);
         cartService.deleteTest(id);
         testService.deleteTest(id);
 
@@ -143,8 +142,11 @@ public class TestController {
         MedicalTestServiceModel medicalTestServiceModel = testService.findTestById(id);
         boolean isNameUnique;
 
-        if (!medicalTestServiceModel.getName().equals(medicalTestEditBindingModel.getName())){
+        String medicalTestName = medicalTestEditBindingModel.getName();
+        if (!(medicalTestServiceModel.getName().equals(medicalTestName))){
             isNameUnique = testService.isUniqueName(medicalTestEditBindingModel.getName());
+            String testName = medicalTestEditBindingModel.getName();
+            medicalTestEditBindingModel.setName(testName);
         } else {
             isNameUnique = true;
         }

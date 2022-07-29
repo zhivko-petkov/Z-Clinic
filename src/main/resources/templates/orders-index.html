@@ -19,27 +19,27 @@
     <div class="container">
         <div class="bd-example">
             <!--If admin/moderator-->
-            <div class="d-flex justify-content-left mt-4 mb-3">
-                <a href="/users/add" class="btn btn-primary btn-block w-20" type="submit" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
-                    <i class="bi bi-person-plus"></i>
-                </a>
-            </div>
-            <table class="table table-warning table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Result</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">First name</th>
-                    <th scope="col">Surname</th>
-                    <th scope="col">Email</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <!--Element-->
+            <!--<div class="d-flex justify-content-left mt-4 mb-3">
+               <a href="/orders/add" class="btn btn-primary btn-block w-20" type="submit" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                   <i class="bi bi-person-plus"></i>
+               </a>
+           </div>-->
+           <table class="table table-warning table-hover">
+               <thead>
+               <tr>
+                   <th scope="col">#</th>
+                   <th scope="col">Date</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">Result</th>
+                   <th scope="col">Username</th>
+                   <th scope="col">First name</th>
+                   <th scope="col">Surname</th>
+                   <th scope="col">Email</th>
+                   <th scope="col"></th>
+               </tr>
+               </thead>
+               <tbody>
+               <!--Element-->
                 <tr th:each="o: ${orders}">
                     <th scope="row" th:text="*{o.id}"></th>
                     <td th:text="*{o.createdOn}"></td>
@@ -66,7 +66,7 @@
                             <i class="bi bi-eye"></i>
                         </a>
 
-                        <a th:href="@{/result/order/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/orders/delete/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">
                             <i class="bi bi-trash"></i>
                         </a>
 

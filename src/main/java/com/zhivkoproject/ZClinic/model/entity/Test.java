@@ -2,11 +2,12 @@ package com.zhivkoproject.ZClinic.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "tests")
 public class Test extends BaseEntity{
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne
@@ -18,7 +19,14 @@ public class Test extends BaseEntity{
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(optional = false)
+    @Column(nullable = false)
+    private boolean isOffer;
+
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL)
+    private List<Result> results;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User addedBy;
 
     public Test() {
@@ -62,5 +70,21 @@ public class Test extends BaseEntity{
 
     public void setAddedBy(User addedBy) {
         this.addedBy = addedBy;
+    }
+
+    public boolean isOffer() {
+        return isOffer;
+    }
+
+    public void setOffer(boolean offer) {
+        isOffer = offer;
+    }
+
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 }

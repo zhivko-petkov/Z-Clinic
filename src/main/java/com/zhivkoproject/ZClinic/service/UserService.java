@@ -33,4 +33,8 @@ public interface UserService {
     String findUsernameById(Long id);
 
     UserServiceModel findUserByEmail(String email);
+
+    boolean checkUsernameExists(String username);
+
+    boolean checkEmailExists(String email);
 }

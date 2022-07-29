@@ -35,7 +35,6 @@
               <th scope="col">Email</th>
               <th scope="col">Address</th>
               <th scope="col">Additional Details</th>
-              <th scope="col">Results</th>
               <th scope="col">Options</th>
               <th scope="col">Tests</th>
             </tr>
@@ -47,16 +46,14 @@
               <td th:text="*{u.username}"></td>
               <td th:text="*{u.firstName}"></td>
               <td th:text="*{u.surname}"></td>
-              <!--
-              <td th:text="*{u.roles.get(0).getUserRole().name()}"></td>-->
+              <td th:text="*{u.roles.get(0).getUserRole().name()}"></td>
               <td th:text="*{u.email}"></td>
               <td th:text="*{u.address}"></td>
               <td th:text="*{u.additionalDetails}"></td>
-              <td>Completed</td>
               <!--Admin/Moderator/Doctor-->
               <td>
 
-                  <a href="#" class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                  <a th:href="@{/users/edit/{id}(id = *{u.id})}" class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
                     <i class="bi bi-pen"></i>
                   </a>
 
@@ -65,10 +62,11 @@
                 </a>
               </td>
               <td>
-                <a th:href="@{/users/edit/{id}(id = *{u.id})}" class="btn btn-primary" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
-                  <i class="bi bi-eye"></i>
+                <a th:href="@{/orders/{id}(id=*{u.id})}" class="btn btn-primary" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                <i class="bi bi-eye"></i>
                 </a>
               </td>
+
             </tr>
 
 

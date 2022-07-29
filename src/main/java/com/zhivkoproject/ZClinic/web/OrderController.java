@@ -1,12 +1,20 @@
 package com.zhivkoproject.ZClinic.web;
+import com.zhivkoproject.ZClinic.model.binding.OrderAddBindingModel;
 import com.zhivkoproject.ZClinic.model.service.OrderServiceModel;
 import com.zhivkoproject.ZClinic.service.OrderService;
+import com.zhivkoproject.ZClinic.service.TestService;
+import com.zhivkoproject.ZClinic.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -14,13 +22,16 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final ModelMapper modelMapper;
+    private final UserService userService;
+    private final TestService testService;
 
-    public OrderController(OrderService orderService, ModelMapper modelMapper) {
+    public OrderController(OrderService orderService, ModelMapper modelMapper, UserService userService, TestService testService) {
         this.orderService = orderService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
+        this.testService = testService;
     }
-
-    //fixec security bug for users edit
+//fixec security bug for users edit
 
 
     @GetMapping()
@@ -45,10 +56,49 @@ public class OrderController {
         return "results-index";
 
     }
+    @GetMapping("/{id}")
+    public String userOrdersById(@PathVariable Long id, Model model){
+        String username = userService.findUsernameById(id);
+        List<OrderServiceModel> loggedUserOrders = orderService.getUserOrders(username);
+
+        model.addAttribute("loggedUserOrders", loggedUserOrders);
+
+        return "results-index";
+
+    }
 
     //TODO: RESULTS
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id,
+                         Principal principal){
 
+        orderService.deleteOrder(id);
+
+        return "redirect:/orders";
+    }
+/*
+    @GetMapping("/add/{id}")
+    public String add(@PathVariable Long id, Model model) {
+        model.addAttribute("userId", id);
+        model.addAttribute("allTests", testService.getAllMedicalTests());
+        return "orders-add";
+    }
+
+    @PostMapping("/add/{id}")
+    public String add(@Valid OrderAddBindingModel orderAddBindingModel,
+                      BindingResult bindingResult,
+                      RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("orderAddBindingModel", orderAddBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderAddBindingModel",
+                    bindingResult);
+        }
+        orderService.addOrder(orderAddBindingModel);
+        return "orders-add";
+    }
+
+*/
 /*
     @GetMapping("/result/add/{id}")
     public String addResult(@PathVariable Long id,

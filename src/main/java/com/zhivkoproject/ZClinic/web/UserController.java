@@ -4,6 +4,7 @@ import com.zhivkoproject.ZClinic.config.FileUploadUtil;
 import com.zhivkoproject.ZClinic.model.binding.*;
 import com.zhivkoproject.ZClinic.model.entity.UserRole;
 import com.zhivkoproject.ZClinic.model.enums.UserRoleEnum;
+import com.zhivkoproject.ZClinic.model.service.MedicalTestServiceModel;
 import com.zhivkoproject.ZClinic.model.service.UserServiceModel;
 import com.zhivkoproject.ZClinic.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -42,7 +44,13 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        if(!model.containsAttribute("isUsernameUnique")) {
+            model.addAttribute("isUsernameUnique", true);
+        }
+        if(!model.containsAttribute("isEmailUnique")) {
+            model.addAttribute("isEmailUnique", true);
+        }
         return "register";
     }
 
@@ -51,10 +59,23 @@ public class UserController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
+        boolean isUsernameUnique = userService.checkUsernameExists(userBindingModel.getUsername());
+        boolean isEmailUnique = userService.checkEmailExists(userBindingModel.getEmail());
+
+
+        if (bindingResult.hasErrors() || !isEmailUnique || !isUsernameUnique) {
             redirectAttributes.addFlashAttribute("userBindingModel", userBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userBindingModel",
                     bindingResult);
+
+            if (!isEmailUnique) {
+                redirectAttributes.addFlashAttribute("isEmailUnique", false);
+            }
+
+            if(!isUsernameUnique){
+                redirectAttributes.addFlashAttribute("isUsernameUnique", false);
+            }
+
             return "redirect:/users/register";
         }
         this.userService.register(userBindingModel);
@@ -62,15 +83,24 @@ public class UserController {
         return "redirect:/";
     }
 
-    @ModelAttribute("userLoginBindingModel")
-    public UserLoginBindingModel userLoginBindingModel() {
-        return new UserLoginBindingModel();
-    }
 
     @GetMapping("/login")
     public String login() {
         return "login";
     }
+
+    @PostMapping("/login-error")
+    public String onFailedLogin(
+            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY) String username,
+            RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY, username);
+
+        redirectAttributes.addFlashAttribute("bad_credentials", true);
+
+        return "redirect:/users/login";
+    }
+
 
     @ModelAttribute
     public UserEditBindingModel userServiceModel(){
@@ -84,6 +114,9 @@ public class UserController {
         UserServiceModel user = userService.findUser(username);
         UserEditBindingModel userEditBindingModel = modelMapper.map(user, UserEditBindingModel.class);
         model.addAttribute("userEditBindingModel", userEditBindingModel);
+        if(!model.containsAttribute("isEmailUnique")) {
+            model.addAttribute("isEmailUnique", true);
+        }
         return "user-home";
     }
 
@@ -94,6 +127,16 @@ public class UserController {
                           @AuthenticationPrincipal UserDetails userDetails,
                           @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
+        UserServiceModel userServiceModel = userService.findUser(userDetails.getUsername());
+
+        boolean isEmailUnique;
+        String email = userServiceModel.getEmail();
+
+        if (!((userEditBindingModel.getEmail()).equals(email))){
+            isEmailUnique = userService.checkEmailExists(userEditBindingModel.getEmail());
+        } else {
+            isEmailUnique = true;
+        }
 
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
@@ -101,15 +144,22 @@ public class UserController {
         userEditBindingModel.setRoles(user.getRoles());
         userEditBindingModel.setUsername(user.getUsername());
 
+
+
         String uploadDir = "src/main/resources/static/user-photos/" + user.getUsername();
         if(!fileName.isEmpty()) {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
             userEditBindingModel.setImageUrl("/"+"user-photos"+"/"+ user.getUsername()+ "/" + fileName);
         }
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || !isEmailUnique) {
             redirectAttributes.addFlashAttribute("userEditBindingModel", userEditBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userEditBindingModel",
                     bindingResult);
+
+            if (!isEmailUnique) {
+                redirectAttributes.addFlashAttribute("isEmailUnique", false);
+            }
+
             return "redirect:/users/profile";
         }
 
@@ -183,6 +233,13 @@ public class UserController {
     @GetMapping("/add")
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')")
     public String add(Model model) {
+
+        if(!model.containsAttribute("isUsernameUnique")) {
+            model.addAttribute("isUsernameUnique", true);
+        }
+        if(!model.containsAttribute("isEmailUnique")) {
+            model.addAttribute("isEmailUnique", true);
+        }
         return "user-add";
     }
 
@@ -192,10 +249,22 @@ public class UserController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
+        boolean isUsernameUnique = userService.checkUsernameExists(userAddBindingModel.getUsername());
+        boolean isEmailUnique = userService.checkEmailExists(userAddBindingModel.getEmail());
+
+        if (bindingResult.hasErrors() || !isUsernameUnique || !isEmailUnique) {
             redirectAttributes.addFlashAttribute("userAddBindingModel", userAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userAddBindingModel",
                     bindingResult);
+
+            if (!isEmailUnique){
+                redirectAttributes.addFlashAttribute("isEmailUnique", false);
+            }
+
+            if (!isUsernameUnique){
+                redirectAttributes.addFlashAttribute("isUsernameUnique", false);
+            }
+
             return "redirect:/users/add";
         }
         this.userService.addUser(userAddBindingModel);
@@ -206,7 +275,9 @@ public class UserController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, Principal principal){
         userService.deleteUser(id);
-
+        if (userService.findUser(principal.getName()).getId() == id){
+            return "redirect:/users/logout";
+        }
         return "redirect:/users";
     }
 

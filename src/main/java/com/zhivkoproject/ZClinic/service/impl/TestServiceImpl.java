@@ -53,9 +53,9 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<MedicalTestServiceModel> getAllMedicalTests() {
         return testRepository
-                .findAll()
+                .findAllByOffer(true)
                 .stream()
-                .map(test -> modelMapper.map(test,MedicalTestServiceModel.class))
+                .map(test -> modelMapper.map(test, MedicalTestServiceModel.class))
                 .collect(Collectors.toList());
     }
 
@@ -65,6 +65,7 @@ public class TestServiceImpl implements TestService {
         UserServiceModel userServiceModel = userService.findUser(medicalTestAddBindingModel.getAddedByUsername());
         currentTest.setAddedBy(modelMapper.map(userServiceModel, User.class));
         currentTest.setCategory(categoryService.findCategory(medicalTestAddBindingModel.getCategory()));
+        currentTest.setOffer(true);
         testRepository.save(currentTest);
     }
 
@@ -110,7 +111,9 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void deleteTest(Long id) {
-        testRepository.deleteById(id);
+        Test test = testRepository.findById(id).orElse(null);
+        test.setOffer(false);
+        testRepository.save(test);
     }
 
     @Override
@@ -123,10 +126,21 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void editTest(MedicalTestAddBindingModel medicalTestEditBindingModel, Long id, String username) {
-        Test test = modelMapper.map(medicalTestEditBindingModel, Test.class);
-        test.setId(id);
-        test.setCategory(categoryService.findCategory(medicalTestEditBindingModel.getCategory()));
+        //get old test
+        Test oldTest = testRepository.findById(id).orElse(null);
+        oldTest.setOffer(false);
+        String oldName = oldTest.getName();
+        oldTest.setName(oldName);
+        testRepository.save(oldTest);
 
+        /*
+        add new test which is same as old, but is edited and actual now
+        if I save old test as edit I will have inconsistency orders
+        */
+
+        Test test = modelMapper.map(medicalTestEditBindingModel, Test.class);
+        test.setCategory(categoryService.findCategory(medicalTestEditBindingModel.getCategory()));
+        test.setOffer(true);
         test.setAddedBy(modelMapper.map(userService.findUser(username), User.class));
         testRepository.save(test);
     }

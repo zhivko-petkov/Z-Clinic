@@ -11,7 +11,7 @@
 
   <!--Add user-->
 <main class="p-5 align-content-center bg-blur">
-  <h1 class="text-dark border-bottom mb-5">Register</h1>
+  <h1 class="text-dark border-bottom mb-5">Create new user</h1>
   <div class="d-flex justify-content-center">
     <div class="row g-3 align-items-center">
       <section class="p-5">
@@ -36,6 +36,7 @@
                           be more than 3
                           characters</small>
                       </div>
+                      <small th:if="${isUsernameUnique == false}" class="text-light form-text bg-danger rounded">Username exists.</small>
                     </div>
 
                   </div>
@@ -49,7 +50,7 @@
                              type="text" name="firstName" id="inputfirstName" class="form-control"
                              aria-describedby="firstNameHelpInline">
                       <div class="invalid-feedback col-auto">
-                        <small id="firstNameError" class="text-dark form-text bg-danger rounded">First Name length
+                        <small id="firstNameError" class="text-light form-text bg-danger rounded">First Name length
                           must be more
                           than 3
                           characters</small>
@@ -85,7 +86,7 @@
                              type="text" name="Address" id="inputAddress" class="form-control"
                              aria-describedby="AddressHelpInline">
                       <div class="invalid-feedback col-auto">
-                        <small id="AddressError" class="text-dark form-text bg-danger rounded">Address length must
+                        <small id="AddressError" class="text-light form-text bg-danger rounded">Address length must
                           be more than 3
                           characters</small>
                       </div>
@@ -105,6 +106,7 @@
                         <small id="emailError" class="text-light form-text bg-danger rounded">Must be valid
                           email</small>
                       </div>
+                      <small th:if="${isEmailUnique == false}" class="text-light form-text bg-danger rounded">Email exists.</small>
                     </div>
 
                     <div>
@@ -160,22 +162,24 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12">
+                  <div class="col-auto mt-2">
                     <label for="userRole">Role</label>
                     <select th:field="*{role}"
                             th:errorclass="is-invalid"
-                            class="browser-default custom-select" id="userRole" name="userRole">
+                            class="browser-default custom-select form-control" id="userRole" name="userRole">
                       <option value="">Select role</option>
                       <option th:each="c : ${T(com.zhivkoproject.ZClinic.model.enums.UserRoleEnum).values()}"
                               th:value="${c}"
                               th:text="${c}">
                       </option>
                     </select>
-                    <small id="typeError" class="form-text text-light bg-danger rounded ">You must select type of
+                    <small id="typeError" class="form-text text-light bg-danger rounded invalid-feedback">You must select type of
                       user</small>
                   </div>
+
+
                   <div class="d-flex justify-content-center mt-4">
-                    <button class="btn btn-primary btn-block w-50" type="submit">Add</button>
+                    <button class="btn btn-primary btn-block w-50" type="submit">Create</button>
                   </div>
                 </form>
               </div>

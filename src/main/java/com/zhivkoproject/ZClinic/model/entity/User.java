@@ -31,6 +31,18 @@ public class User extends BaseEntity{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
+    @OneToMany(mappedBy = "addedBy", cascade = CascadeType.ALL)
+    private List<Test> tests;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Result> results;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Cart> carts;
+
+    @OneToMany(mappedBy = "addedBy", cascade = CascadeType.ALL)
+    private List<News> news;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRole> userRoles = new ArrayList<>();
 
@@ -120,5 +132,35 @@ public class User extends BaseEntity{
         this.imageUrl = imageUrl;
     }
 
+    public List<Test> getTests() {
+        return tests;
+    }
 
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
+    }
+
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
+    public List<News> getNews() {
+        return news;
+    }
+
+    public void setNews(List<News> news) {
+        this.news = news;
+    }
 }

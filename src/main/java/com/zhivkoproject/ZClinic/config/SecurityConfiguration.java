@@ -40,16 +40,15 @@ public class SecurityConfiguration {
                 and().
                 // configuration of form login
                         formLogin().
-                // the custom login form
-                        loginPage("/users/login").
-                // the name of the username field
-                        usernameParameter("username").
-                // the name of the password field
-                        passwordParameter("password").
-                // where redirect when user is logged
+                loginPage("/users/login").
+                // the name of the username form field
+                        usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
+                // the name of the password form field
+                        passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
+                // where to go in case that the login is successful
                         defaultSuccessUrl("/").
                 // where to go in case that login failed
-                        failureForwardUrl("/users/login?error=true").
+                        failureForwardUrl("/users/login-error").
                 and().
                 // congifure logout
                         logout().

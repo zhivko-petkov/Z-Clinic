@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity{
-
     @ManyToOne
     private User user;
 
@@ -21,7 +20,7 @@ public class Order extends BaseEntity{
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Result> results;
 
     private boolean isPaid;
