@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+<body>
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+  <!--ALL NEWS-->
+  <section class="p-5">
+    <div class="container">
+      <div class="d-flex justify-content-left mt-4 mb-3">
+        <a href="/news/add" class="btn btn-primary btn-block w-20" type="submit">
+          <i class="bi bi-plus-square">
+          </i></a>
+      </div>
+      <div class="row text-center g-4">
+        <!--Element block-->
+        <div th:each="n : ${allNews}" class="col-md">
+          <div class="card bg-light text-dark">
+            <div class="card-body text-center">
+              <div class="h1 mb-3">
+                <img class="card-img-top"
+                  data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
+                  alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;"
+                  data-holder-rendered="true" th:src="*{n.getImgUrl()}">
+
+              </div>
+              <h3 th:text="*{n.getTitle()}" class="card-title mb-3"></h3>
+              <p th:text="*{n.getContent()}" class="card-text">
+              </p>
+              <a th:href="@{/news/{id}(id=*{n.getId()})}" class="btn btn-primary">Read More</a>
+
+              <!--ADMIN/DOCTOR/MODERATOR-->
+              <a th:href="@{/news/edit/{id}(id=*{n.getId()})}"class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                <i class="bi bi-pen"></i>
+              </a>
+              <a th:href="@{/news/delete/{id}(id=*{n.getId()})}" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                <i class="bi bi-trash"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+
+<!-- Footer -->
+<footer th:replace="~{fragments/commons::footer}">
+</footer>
+
+</html>

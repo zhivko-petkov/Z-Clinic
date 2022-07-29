@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+<body>
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+
+  <section class="mbr-section content6 cid-qweqpA5jv6" id="content6-1a" data-rv-view="6123">
+
+    <section class="p-5">
+      <div class="container">
+        <div class="row align-items-center justify-content-between">
+
+          <div class="col-md p-5">
+            <h2 th:text="*{news.getTitle().toUpperCase()}"></h2>
+            <p th:text="*{news.getCreatedOn()}" class="text-secondary"><span th:text="'by' + *{news.getAddedBy().username}" class="text-primary"></span></p>
+            <p th:text="*{news.getContent()}" class="lead">
+            </p>
+          </div>
+          <div class="col-md">
+            <img th:src="*{news.getImgUrl()}" class="img-fluid" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+
+<!-- Footer -->
+<footer class="p-5 bg-primary text-white text-center position-relative">
+  <div class="container">
+    <p class="lead">Copyright &copy; 2022 Z-Clinic</p>
+
+    <a href="#" class="position-absolute bottom-0 end-0 p-5">
+      <i class="bi bi-arrow-up-circle h1"></i>
+    </a>
+  </div>
+</footer>
+
+</html>

@@ -1,30 +1,29 @@
-package com.zhivkoproject.ZClinic.model.entity;
+package com.zhivkoproject.ZClinic.model.service;
+
+import com.zhivkoproject.ZClinic.model.entity.User;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "news")
-public class News extends BaseEntity{
-    @Column(nullable = false)
+public class NewsServiceModel {
+
+    private Long id;
     private String title;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-
-    @Column(nullable = false)
     private String imgUrl;
-
-    @ManyToOne
     private User addedBy;
-
-    @Column(nullable = false)
     private LocalDate createdOn;
 
-    public News() {
+    public NewsServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
