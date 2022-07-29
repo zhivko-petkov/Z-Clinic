@@ -52,7 +52,7 @@ public class TestController {
 
     @GetMapping()
     public String index(@AuthenticationPrincipal UserDetails userDetails,
-                        Model model){
+                        Model model, Principal principal){
 
         List<MedicalTestServiceModel> getAllTests = testService.getAllMedicalTests();
         model.addAttribute("getAllMedicalTests", getAllTests);

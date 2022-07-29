@@ -29,9 +29,11 @@ public class HomeController {
             UserServiceModel userServiceModel = userService.findUser(principal.getName());
             model.addAttribute("userPhoto", userServiceModel.getImageUrl());
         }
-
-        model.addAttribute("newNationalCases",testService.getCovidNationalCases());
-        model.addAttribute("allNationalCases", testService.getTotalCovidNationalCases());
+        //TODO - Save daily information about Covid in database. It's not need to get request from external API every page reload.
+        //testService.getCovidNationalCases()
+        model.addAttribute("newNationalCases",1100);
+        //testService.getTotalCovidNationalCases());
+        model.addAttribute("allNationalCases", 50);
 
         return "index";
     }

@@ -45,7 +45,7 @@
     <div class="container">
       <div class="bd-example">
         <!--If admin/moderator-->
-        <div class="d-flex justify-content-left mt-4 mb-3">
+        <div class="d-flex justify-content-left mt-4 mb-3" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR','ROLE_DOCTOR')">
           <a href="/tests/add" class="btn btn-primary btn-block w-20" type="submit">
             <i class="bi bi-plus-square">
             </i></a>

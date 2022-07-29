@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 @Table
 @Entity(name = "results")
 public class Result extends BaseEntity{
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Test test;
 
     @Column(nullable = true)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:security="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/commons::head}"></head>
 
@@ -68,6 +68,10 @@
 
                         <a th:href="@{/result/order/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">
                             <i class="bi bi-trash"></i>
+                        </a>
+
+                        <a th:href="@{/result/order/add/{id}(id = *{o.id})}" class="btn btn-warning text-dark" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                            Edit result
                         </a>
                     </td>
                 </tr>

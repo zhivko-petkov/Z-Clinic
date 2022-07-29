@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
-</svg>
+
 
 <head th:fragment="head">
     <meta charset="UTF-8">
@@ -32,15 +30,19 @@
         <div class="collapse navbar-collapse" id="navigation-menu">
             <!-- Left -->
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item">
                     <a href="/" class="nav-link text-light">Home</a>
                 </li>
+
                 <li class="nav-item">
                     <a href="/news" class="nav-link text-light">News</a>
                 </li>
+
                 <li class="nav-item">
                     <a href="/tests" class="nav-link text-light">Medical Tests</a>
                 </li>
+
                 <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownAdmin" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,26 +55,26 @@
                         <li><a class="dropdown-item" href="/orders">Orders</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR') || hasRole('DOCTOR')">
-                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownModerator" role="button"
+
+                <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_MODERATOR','ROLE_DOCTOR')">
+
+                    <a sec:authorize="hasAnyRole('ROLE_MODERATOR')" class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownModerator" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Moderator
                     </a>
+
+                    <a sec:authorize="hasAnyRole('ROLE_DOCTOR')" class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownDoctor" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Doctor
+                    </a>
+
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownModerator">
                         <li><a class="dropdown-item" href="/users">Users</a></li>
                         <li><a class="dropdown-item" href="/orders">Orders</a></li>
                     </ul>
+
                 </li>
-                <li class="nav-item dropdown" sec:authorize="hasRole('DOCTOR')">
-                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuDoctor" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Doctor
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuDoctor">
-                        <li><a class="dropdown-item" href="#">Users</a></li>
-                        <li><a class="dropdown-item" href="#">Orders</a></li>
-                    </ul>
-                </li>
+
                 <li class="nav-item">
                     <a href="/questions" class="nav-link text-light">Questions</a>
                 </li>
@@ -83,15 +85,15 @@
 
             <!-- Right -->
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a href="/users/login" class="nav-link text-light" sec:authorize="!isAuthenticated()">Login</a>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a href="/users/login" class="nav-link text-light">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/users/register" class="nav-link text-light" sec:authorize="!isAuthenticated()">Register</a>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a href="/users/register" class="nav-link text-light">Register</a>
                 </li>
 
                 <!-- Avatar -->
-                <div class="dropdown" >
+                <div class="dropdown" sec:authorize="isAuthenticated()">
                     <a
                             class="nav-link dropdown-toggle text-light"
                             href="#"
@@ -113,8 +115,8 @@
                     </ul>
                 </div>
 
-                <div>
-                    <a href="/cart" class="nav-link text-light" sec:authorize="isAuthenticated()">
+                <div sec:authorize="isAuthenticated()">
+                    <a href="/cart" class="nav-link text-light" >
                         <i class="bi bi-bag"></i>
                     </a>
                 </div>
@@ -144,4 +146,5 @@
     </div>
 </footer>
 
+</html>
 

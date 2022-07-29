@@ -3,11 +3,13 @@ package com.zhivkoproject.ZClinic.service.impl;
 import com.zhivkoproject.ZClinic.model.binding.UserAddBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.UserLoginBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.UserRegisterBindingModel;
+import com.zhivkoproject.ZClinic.model.entity.Order;
 import com.zhivkoproject.ZClinic.model.entity.User;
 import com.zhivkoproject.ZClinic.model.entity.UserRole;
 import com.zhivkoproject.ZClinic.model.enums.UserRoleEnum;
 import com.zhivkoproject.ZClinic.model.binding.UserEditBindingModel;
 import com.zhivkoproject.ZClinic.model.service.UserServiceModel;
+import com.zhivkoproject.ZClinic.repository.OrderRepository;
 import com.zhivkoproject.ZClinic.repository.UserRepository;
 import com.zhivkoproject.ZClinic.repository.UserRoleRepository;
 import com.zhivkoproject.ZClinic.service.UserService;
@@ -30,14 +32,19 @@ public class UserServiceImpl implements UserService {
     private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private final UserDetailsService userDetailsService;
+    private final OrderRepository orderRepository;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, UserDetailsService userDetailsService) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserRoleRepository userRoleRepository,
+                           PasswordEncoder passwordEncoder,
+                           ModelMapper modelMapper,
+                           OrderRepository orderRepository) {
+
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
-        this.userDetailsService = userDetailsService;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -71,17 +78,65 @@ public class UserServiceImpl implements UserService {
         if(userRepository.count() > 0){
             return;
         }
-        User firstUser = new User();
-        firstUser.setUsername("admin");
-        firstUser.setEmail("admin@admin.bg");
-        firstUser.setFirstName("adm");
-        firstUser.setSurname("adm");
-        firstUser.setPassword(passwordEncoder.encode("topsecret"));
-        firstUser.setAddress("Sofia");
-        List<UserRole> currentRoles = firstUser.getUserRoles();
+        //ADMIN
+        User admUser = new User();
+        admUser.setUsername("admin");
+        admUser.setEmail("admin@admin.bg");
+        admUser.setFirstName("Admin");
+        admUser.setSurname("Admin");
+        admUser.setPassword(passwordEncoder.encode("topsecret"));
+        admUser.setAddress("Sofia");
+
+        List<UserRole> currentRoles = admUser.getUserRoles();
         currentRoles.add(userRoleRepository.findByUserRole(UserRoleEnum.ADMIN));
-        firstUser.setUserRoles(currentRoles);
-        userRepository.save(firstUser);
+        admUser.setUserRoles(currentRoles);
+
+        userRepository.save(admUser);
+
+        //DOCTOR
+        User doctorUser = new User();
+        doctorUser.setUsername("doctor");
+        doctorUser.setEmail("doctor@doctor.bg");
+        doctorUser.setFirstName("Doctor");
+        doctorUser.setSurname("Doctor");
+        doctorUser.setPassword(passwordEncoder.encode("topsecret"));
+        doctorUser.setAddress("Sofia");
+
+        List<UserRole> currentDoctorRoles = doctorUser.getUserRoles();
+        currentDoctorRoles.add(userRoleRepository.findByUserRole(UserRoleEnum.DOCTOR));
+        doctorUser.setUserRoles(currentDoctorRoles);
+
+        userRepository.save(doctorUser);
+
+        //MODERATOR
+        User moderatorUser = new User();
+        moderatorUser.setUsername("moderator");
+        moderatorUser.setEmail("moderator@moderator.bg");
+        moderatorUser.setFirstName("Moderator");
+        moderatorUser.setSurname("Moderator");
+        moderatorUser.setPassword(passwordEncoder.encode("topsecret"));
+        moderatorUser.setAddress("Plovdiv");
+
+        List<UserRole> currentModeratorRoles = moderatorUser.getUserRoles();
+        currentModeratorRoles.add(userRoleRepository.findByUserRole(UserRoleEnum.MODERATOR));
+        moderatorUser.setUserRoles(currentModeratorRoles);
+
+        userRepository.save(moderatorUser);
+
+        //STANDART
+        User standartUser = new User();
+        standartUser.setUsername("standart");
+        standartUser.setEmail("standart@standart.bg");
+        standartUser.setFirstName("Standart");
+        standartUser.setSurname("Standart");
+        standartUser.setPassword(passwordEncoder.encode("topsecret"));
+        standartUser.setAddress("Varna");
+
+        List<UserRole> currentStandartRoles = standartUser.getUserRoles();
+        currentStandartRoles.add(userRoleRepository.findByUserRole(UserRoleEnum.STANDART));
+        standartUser.setUserRoles(currentStandartRoles);
+        userRepository.save(standartUser);
+
     }
 
     @Override
@@ -154,6 +209,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         User user = userRepository.findById(id).orElse(null);
+        for (Order order : user.getOrders()) {
+            orderRepository.delete(order);
+        }
         this.userRepository.delete(user);
     }
 
