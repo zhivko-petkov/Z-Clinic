@@ -21,10 +21,10 @@ public class SecurityConfiguration {
                 authorizeRequests().
                 //everyone can download static resources (css, js, images)
                 //vnimavai tuk, papkata trqbva da se kazva images
-                        antMatchers("/users", "/users/").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
-                antMatchers("/users/add", "/tests/add", "/tests/edit").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
+                        antMatchers("/users", "/users/", "/result/order/add/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
+                antMatchers("/users/add", "/tests/add", "/tests/edit", "/news/add").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
                 antMatchers("/users/edit/**" ).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')").
-                antMatchers("/", "/users/login", "/users/register", "/tests").permitAll().
+                antMatchers("/", "/users/login", "/users/register", "/tests", "/news", "/questions", "/about").permitAll().
                         antMatchers("/css/**", "/images/**").permitAll().
                         antMatchers("/user-photos/**").authenticated().
                         antMatchers("/cart/**", "/result/**").authenticated().

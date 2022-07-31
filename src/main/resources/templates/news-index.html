@@ -11,7 +11,7 @@
   <!--ALL NEWS-->
   <section class="p-5">
     <div class="container">
-      <div class="d-flex justify-content-left mt-4 mb-3">
+      <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')" class="d-flex justify-content-left mt-4 mb-3">
         <a href="/news/add" class="btn btn-primary btn-block w-20" type="submit">
           <i class="bi bi-plus-square">
           </i></a>
