@@ -134,7 +134,7 @@
                 Our doctors
               </h3>
               <p class="card-text">
-                <a href="/users/doctors" class="btn btn-primary">Find</a>
+                <a href="/doctors" class="btn btn-primary">Find</a>
               </p>
             </div>
           </div>
@@ -152,65 +152,25 @@
     <div class="container">
       <div class="row text-center g-4">
         <!--Element block-->
-        <div class="col-md">
+        <div class="col-md" th:each="a : ${allNews}">
           <div class="card bg-light text-dark">
             <div class="card-body text-center">
               <div class="h1 mb-3">
                 <img class="card-img-top"
                   data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
-                  alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;"
-                  data-holder-rendered="true" th:src="@{/images/doctor.jpg}">
+                  alt="Thumbnail [100%x225]" style="height: 250px;overflow:hidden;"
+                  data-holder-rendered="true" th:src="*{a.getImgUrl()}">
 
               </div>
-              <h3 class="card-title mb-3">All for your healthy life</h3>
-              <p class="card-text">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Iure, quas quidem possimus dolorum esse eligendi?
+              <h3 class="card-title mb-3" th:text="*{a.getTitle()}"></h3>
+              <p class="card-text" th:text="*{a.getContent().substring(0,50)} + '..'">
               </p>
-              <a href="#" class="btn btn-primary">Read More</a>
+              <a th:href="@{/news/{id}(id = *{a.getId()})}" class="btn btn-primary">Read More</a>
             </div>
           </div>
         </div>
-        <!--Element block-->
-        <div class="col-md">
-          <div class="card bg-light text-dark">
-            <div class="card-body text-center">
-              <div class="h1 mb-3">
-                <img class="card-img-top"
-                     data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
-                     alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;"
-                     data-holder-rendered="true" th:src="@{/images/doctor.jpg}">
 
-              </div>
-              <h3 class="card-title mb-3">All for your healthy life</h3>
-              <p class="card-text">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Iure, quas quidem possimus dolorum esse eligendi?
-              </p>
-              <a href="#" class="btn btn-primary">Read More</a>
-            </div>
-          </div>
-        </div>
-        <!--Element block-->
-        <div class="col-md">
-          <div class="card bg-light text-dark">
-            <div class="card-body text-center">
-              <div class="h1 mb-3">
-                <img class="card-img-top"
-                     data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
-                     alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;"
-                     data-holder-rendered="true" th:src="@{/images/dna.jpg}">
 
-              </div>
-              <h3 class="card-title mb-3">All for your healthy life</h3>
-              <p class="card-text">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Iure, quas quidem possimus dolorum esse eligendi?
-              </p>
-              <a href="#" class="btn btn-primary">Read More</a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>

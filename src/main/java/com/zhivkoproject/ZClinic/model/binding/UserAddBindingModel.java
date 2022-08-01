@@ -21,7 +21,7 @@ public class UserAddBindingModel {
     private String surname;
 
     @NotEmpty
-    @Size(min = 2, max = 20)
+    @Size(min = 2)
     private String address;
 
     @Email

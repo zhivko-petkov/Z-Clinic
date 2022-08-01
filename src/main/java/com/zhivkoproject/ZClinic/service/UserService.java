@@ -37,4 +37,6 @@ public interface UserService {
     boolean checkUsernameExists(String username);
 
     boolean checkEmailExists(String email);
+
+    List<UserServiceModel> getDoctors();
 }

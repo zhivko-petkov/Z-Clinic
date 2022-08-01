@@ -8,6 +8,7 @@ import com.zhivkoproject.ZClinic.model.entity.User;
 import com.zhivkoproject.ZClinic.model.entity.UserRole;
 import com.zhivkoproject.ZClinic.model.enums.UserRoleEnum;
 import com.zhivkoproject.ZClinic.model.binding.UserEditBindingModel;
+import com.zhivkoproject.ZClinic.model.service.NewsServiceModel;
 import com.zhivkoproject.ZClinic.model.service.UserServiceModel;
 import com.zhivkoproject.ZClinic.repository.OrderRepository;
 import com.zhivkoproject.ZClinic.repository.UserRepository;
@@ -247,6 +248,16 @@ public class UserServiceImpl implements UserService {
         }
 
         return true;
+    }
+
+    @Override
+    public List<UserServiceModel> getDoctors() {
+        UserRole doctor = userRoleRepository.findByUserRole(UserRoleEnum.DOCTOR);
+        List<User> findAllDoctors = userRepository.findAllByUserRolesContaining(doctor);
+
+        return findAllDoctors.stream()
+                .map(doctors-> modelMapper.map(doctors, UserServiceModel.class))
+                .collect(Collectors.toList());
     }
 
 

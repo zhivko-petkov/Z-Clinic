@@ -25,7 +25,7 @@
             <input th:field="*{title}"
                    th:errorclass="is-invalid"
                    name="title"  id = "title" type="text" class="form-control" placeholder="Title">
-            <small id="titleError" class="form-text text-light bg-danger rounded invalid-feedback">Title must be between 3 and 30
+            <small id="titleError" class="form-text text-light bg-danger rounded invalid-feedback">Title must be between 5 and 50
               characters</small>
 
           </div>
@@ -37,7 +37,7 @@
                       name="content" rows="10" id="content" type="content" class="form-control"
               placeholder="Content"></textarea>
             <small id="contentError" class="form-text bg-danger rounded invalid-feedback">Content length must be
-              more than 5 characters</small>
+             between 50 and 5000</small>
           </div>
 
           <div class="col">

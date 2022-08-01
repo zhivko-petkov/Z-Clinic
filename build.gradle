@@ -28,7 +28,11 @@ dependencies {
 	implementation 'com.javaquery:httpclient:1.0.0'
     implementation 'org.webjars.bowergithub.gthmb:apod-request:0.0.7'
 
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+
+
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

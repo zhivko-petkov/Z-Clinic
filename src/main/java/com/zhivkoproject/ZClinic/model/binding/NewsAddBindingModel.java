@@ -10,10 +10,10 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class NewsAddBindingModel {
-    @Size(min = 3, max = 30)
+    @Size(min = 5, max = 100)
     private String title;
 
-    @Size(min = 10, max = 5000)
+    @Size(min = 50, max = 5000)
     private String content;
 
     private String imgUrl;

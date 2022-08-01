@@ -66,9 +66,28 @@
                             <i class="bi bi-eye"></i>
                         </a>
 
-                        <a th:href="@{/orders/delete/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" sec:authorize="hasRole('ADMIN')">
                             <i class="bi bi-trash"></i>
                         </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Are You Sure?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you really want to delete these records? This process cannot be undone.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a th:href="@{/orders/delete/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <a th:href="@{/result/order/add/{id}(id = *{o.id})}" class="btn btn-warning text-dark" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
                             Edit result

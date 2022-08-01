@@ -29,7 +29,7 @@
 
               </div>
               <h3 th:text="*{n.getTitle()}" class="card-title mb-3"></h3>
-              <p th:text="*{n.getContent()}" class="card-text">
+              <p class="card-text" th:text="*{n.getContent().substring(0, 10)} + '..'">
               </p>
               <a th:href="@{/news/{id}(id=*{n.getId()})}" class="btn btn-primary">Read More</a>
 
@@ -37,9 +37,29 @@
               <a th:href="@{/news/edit/{id}(id=*{n.getId()})}"class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
                 <i class="bi bi-pen"></i>
               </a>
-              <a th:href="@{/news/delete/{id}(id=*{n.getId()})}" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+
+              <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
                 <i class="bi bi-trash"></i>
               </a>
+
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Are You Sure?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Do you really want to delete news? This process cannot be undone.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <a th:href="@{/news/delete/{id}(id=*{n.getId()})}"  class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
