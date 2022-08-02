@@ -11,10 +11,6 @@ public interface TestService {
 
     void addMedicalTest(MedicalTestAddBindingModel medicalTestAddBindingModel);
 
-    int getCovidNationalCases() throws IOException, InterruptedException;
-
-    int getTotalCovidNationalCases() throws IOException, InterruptedException;
-
     void deleteTest(Long id);
 
     MedicalTestServiceModel findTestById(Long id);

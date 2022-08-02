@@ -69,45 +69,6 @@ public class TestServiceImpl implements TestService {
         testRepository.save(currentTest);
     }
 
-    @Override
-    public int getCovidNationalCases() throws IOException, InterruptedException {
-
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://disease.sh/v3/covid-19/historical/bg?lastdays=2"))
-                .build();
-
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.body());
-        String yesterdayCases = response.body().split("\"cases\":")[1].split(":")[1].split(",")[0];
-        String todayCases = response.body().split("\"cases\":")[1].split(",")[1].split(":")[1];
-        todayCases = todayCases.substring(0, todayCases.length()-1);
-
-        return Integer.parseInt(todayCases) - Integer.parseInt(yesterdayCases);
-
-    }
-
-    @Override
-    public int getTotalCovidNationalCases() throws IOException, InterruptedException {
-
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://disease.sh/v3/covid-19/historical/bg?lastdays=2"))
-                .build();
-
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.body());
-        String yesterdayCases = response.body().split("\"cases\":")[1].split(":")[1].split(",")[0];
-        String todayCases = response.body().split("\"cases\":")[1].split(",")[1].split(":")[1];
-        todayCases = todayCases.substring(0, todayCases.length()-1);
-
-        return Integer.parseInt(todayCases);
-
-    }
 
     @Override
     public void deleteTest(Long id) {

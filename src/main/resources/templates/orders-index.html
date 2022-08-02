@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/commons::head}"></head>
-
-
 
 <body>
 
@@ -13,7 +11,7 @@
 <nav th:replace="~{fragments/commons::navbar}"></nav>
 
 <!--Table with tests-->
-<section class="p-12">
+<section class="p-5">
 
     <!--Element-->
     <div class="container">
@@ -106,10 +104,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-</body>
-
 <!-- Footer -->
 <footer th:replace="~{fragments/commons::footer}">
 </footer>
+
+</body>
+
+
 
 </html>
