@@ -88,13 +88,13 @@ public class TestController {
         medicalTestAddBindingModel.setAddedByUsername(username);
 
 
-        if (bindingResult.hasErrors() || !isNameUnique) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("medicalTestAddBindingModel", medicalTestAddBindingModel);
-            if (isNameUnique){
+            /*if (isNameUnique){
                 redirectAttributes.addFlashAttribute("isTestNameUnique", true);
             } else {
                 redirectAttributes.addFlashAttribute("isTestNameUnique", false);
-            }
+            }*/
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.medicalTestAddBindingModel",
                     bindingResult);
             return "redirect:/tests/add";

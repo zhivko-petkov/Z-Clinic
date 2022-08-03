@@ -1,9 +1,6 @@
 package com.zhivkoproject.ZClinic.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -12,7 +9,8 @@ public class News extends BaseEntity{
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Lob
+    @Column(nullable = false, length = 100000)
     private String content;
 
     @Column(nullable = false)

@@ -76,18 +76,30 @@
   </section>
 
   <!-- Email Subscription -->
+<form th:action="@{/subscribe}"
+      th:method="post"
+      th:object="${subscritpionAddBindingModel}">
   <section class="bg-primary text-light p-5">
     <div class="container">
       <div class="d-md-flex justify-content-between align-items-center">
         <h3 class="mb-3 mb-md-0">Sign Up For Our Newsletter</h3>
 
         <div class="input-group email-subscription">
-          <input type="text" class="form-control" placeholder="Enter Email" />
-          <button class="btn btn-warning" type="button">Subscribe</button>
+
+          <input th:field="*{email}"
+                 th:errorclass="is-invalid"
+                 class="form-control" type="email" id="name" placeholder="Enter Email" />
+
+            <small id="emailError" class="text-light form-text bg-danger rounded invalid-feedback">Must be valid
+              email</small>
+
+          <button class="btn btn-warning" type="submit">Subscribe</button>
+
         </div>
       </div>
     </div>
   </section>
+</form>
 
   <!--Options section-->
   <section class="p-5">
@@ -162,7 +174,7 @@
 
               </div>
               <h3 class="card-title mb-3" th:text="*{a.getTitle()}"></h3>
-              <p class="card-text" th:text="*{a.getContent().substring(0,50)} + '..'">
+              <p class="card-text" th:text="*{a.getContent()}">
               </p>
               <a th:href="@{/news/{id}(id = *{a.getId()})}" class="btn btn-primary">Read More</a>
             </div>

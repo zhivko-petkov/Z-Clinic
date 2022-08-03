@@ -21,11 +21,12 @@ public class SecurityConfiguration {
                 authorizeRequests().
                 //everyone can download static resources (css, js, images)
                 //vnimavai tuk, papkata trqbva da se kazva images
-                        antMatchers("/users", "/users/", "/result/order/add/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
-                antMatchers("/users/add", "/tests/add", "/tests/edit", "/news/add").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
-                antMatchers("/users/edit/**" ).access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')").
-                antMatchers("/", "/users/login", "/users/register", "/tests", "/news", "/questions", "/about", "/doctors").permitAll().
-                        antMatchers("/api/**", "/css/**", "/images/**", "/js/**").permitAll().
+                        antMatchers("/users/profile/resetPassword/**", "/users/delete/**").access("hasRole('ROLE_ADMIN')").
+                antMatchers("/users", "/users/", "/result/order/add/**", "/news/", "/tests/delete/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
+                antMatchers("/users/add", "/tests/add", "/tests/edit", "/news/add", "/news/delete").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
+                antMatchers("/users/edit/**", "/orders/delete/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')").
+                antMatchers("/", "/users/login", "/users/register", "/tests", "/news", "/questions", "/about", "/doctors", "/news/**").permitAll().
+                        antMatchers("/api/**", "/css/**", "/images/**", "/js/**", "/templates/error/**", "/subscribe", "/subscription").permitAll().
                         antMatchers("/user-photos/**").authenticated().
                         antMatchers("/cart/**", "/result/**").authenticated().
 

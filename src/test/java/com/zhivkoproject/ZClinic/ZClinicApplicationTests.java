@@ -8,6 +8,7 @@ class ZClinicApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

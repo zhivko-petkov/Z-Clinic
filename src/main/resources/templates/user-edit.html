@@ -98,7 +98,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <a class="btn bg-primary text-light mt-3" th:href="@{/users/profile/changePassword}">Change password</a>
+                        <a class="btn bg-primary text-light mt-3" th:href="@{/users/profile/resetPassword/{id}(id = ${userId})}">Reset password</a>
                     </div>
                 </div>
             </div>

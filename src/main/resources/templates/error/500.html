@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+<body>
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center row">
+        <div class=" col-md-6 mt-10">
+            <img src="https://i.pinimg.com/originals/57/64/c5/5764c5128e322675d1872889daeacdf6.gif" alt=""
+                 class="img-fluid rounded-circle">
+        </div>
+        <div class=" col-md-6 mt-5 mb-6">
+            <p class="fs-3"> <span class="text-danger">Opps!</span> 500 Internal Server Error.</p>
+            <p class="lead">
+                Sorry, something went wrong. We are working on it!
+            </p>
+            <a th:href="@{/}" class="btn btn-warning">Go Home</a>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<!-- Footer -->
+<footer th:replace="~{fragments/commons::footer}">
+</footer>
+</body>
+
+
+</html>

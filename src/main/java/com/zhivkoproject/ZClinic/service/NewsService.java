@@ -16,4 +16,6 @@ public interface NewsService {
     void deleteById(Long id);
 
     void editNews(NewsEditBindingModel newsEditBindingModel);
+
+    void initNews();
 }

@@ -29,6 +29,13 @@ dependencies {
 	implementation 'com.javaquery:httpclient:1.0.0'
     implementation 'org.webjars.bowergithub.gthmb:apod-request:0.0.7'
 
+// test
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	// https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+	testRuntimeOnly group: 'org.hsqldb', name: 'hsqldb', version: '2.7.0'
+//
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 

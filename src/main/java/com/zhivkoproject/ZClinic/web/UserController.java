@@ -168,11 +168,14 @@ public class UserController {
         return "redirect:/users/profile";
     }
 
+    @ModelAttribute("userChangePasswordBindingModel")
+    public UserChangePasswordBindingModel userChangePasswordBindingModel() {return new UserChangePasswordBindingModel();}
+
     @GetMapping("/profile/changePassword")
     public String changePassword(Principal principal, Model model){
-        String username = principal.getName();
-        UserChangePasswordBindingModel userChangePasswordBindingModel = new UserChangePasswordBindingModel();
-        model.addAttribute("userChangePasswordBindingModel", userChangePasswordBindingModel);
+        if (!model.containsAttribute("errorOldPassword"))
+            model.addAttribute("errorOldPassword", false);
+
         return "user-password";
     }
 
@@ -184,15 +187,17 @@ public class UserController {
 
         boolean checkUser = userService.checkUserPassword(userDetails.getUsername(), userChangePasswordBindingModel.getOldPassword());
 
-        if(!checkUser){
-            redirectAttributes.addFlashAttribute("errorOldPassword", true);
-            return "redirect:/users/profile/changePassword";
-        }
 
-        if (bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors() || !checkUser) {
+
+            if(!checkUser)
+                redirectAttributes.addFlashAttribute("errorOldPassword", true);
+
             redirectAttributes.addFlashAttribute("userChangePasswordBindingModel", userChangePasswordBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userChangePasswordBindingModel",
                     bindingResult);
+
             return "redirect:/users/profile/changePassword";
         }
 
@@ -200,6 +205,12 @@ public class UserController {
 
 
         return  "redirect:/users/profile";
+    }
+
+    @GetMapping ("/profile/resetPassword/{id}")
+    public String passwordReset(@PathVariable Long id) {
+        userService.changeUserPassword(userService.findUsernameById(id), "topsecret");
+        return "redirect:/users";
     }
 
 

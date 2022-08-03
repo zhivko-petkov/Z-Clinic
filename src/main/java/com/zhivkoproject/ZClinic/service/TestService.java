@@ -18,4 +18,6 @@ public interface TestService {
     void editTest(MedicalTestAddBindingModel medicalTestEditBindingModel, Long id, String username);
 
     boolean isUniqueName(String name);
+
+    void initTests();
 }

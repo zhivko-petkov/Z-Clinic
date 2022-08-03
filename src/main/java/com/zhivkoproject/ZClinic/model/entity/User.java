@@ -22,7 +22,8 @@ public class User extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "additional_details", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "additional_details", length = 100000)
     private String additionalDetails;
 
     @Column(nullable = false)
@@ -46,7 +47,8 @@ public class User extends BaseEntity{
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRole> userRoles = new ArrayList<>();
 
-    @Column(name = "image_url")
+    @Lob
+    @Column(name = "image_url", length = 100000)
     private String imageUrl;
 
     public User() {
