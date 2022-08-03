@@ -28,6 +28,7 @@ dependencies {
     implementation 'name.wramner.httpclient:HttpClient:1.1'
 	implementation 'com.javaquery:httpclient:1.0.0'
     implementation 'org.webjars.bowergithub.gthmb:apod-request:0.0.7'
+    implementation 'junit:junit:4.13.1'
 
 // test
 	runtimeOnly 'mysql:mysql-connector-java'
