@@ -147,6 +147,38 @@ public class NewsControllerMock {
     }
 
     @Test
+    void testAddInvalidNews() throws Exception {
+        mockMvc.perform(post("/news/add").
+                        with(user(user)).
+                        param("title", "n").
+                        param("content", "").
+                        param("imgUrl", IMGURL).
+                        with(csrf()).
+                        contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                ).andExpect(model().attributeHasNoErrors()).
+                andExpect(status().is(302)).
+                andExpect(view().name("redirect:/news/add"));
+
+    }
+
+    @Test
+    void testEditInvalidNews() throws Exception {
+        News news = initNews();
+
+        mockMvc.perform(post("/news/edit/" + news.getId()).
+                        with(user(user)).
+                        param("title", "n").
+                        param("content", "").
+                        param("imgUrl", IMGURL).
+                        with(csrf()).
+                        contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                ).andExpect(model().attributeHasErrors()).
+                andExpect(status().is(302)).
+                andExpect(view().name("redirect:/news/edit/{id}"));
+
+    }
+
+    @Test
     void testEditNewsPage() throws Exception {
         News news = initNews();
 
@@ -196,6 +228,7 @@ public class NewsControllerMock {
     }
 
 
+
     private News initNews() {
         News news = new News();
         news.setCreatedOn(LocalDate.now());
@@ -210,6 +243,7 @@ public class NewsControllerMock {
         return saved;
 
     }
+
 
 
 }

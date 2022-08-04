@@ -1,8 +1,8 @@
 package com.zhivkoproject.ZClinic.web;
 
-import com.zhivkoproject.ZClinic.model.binding.MedicalTestAddBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.NewsAddBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.NewsEditBindingModel;
+import com.zhivkoproject.ZClinic.model.binding.NewsSearchBindingModel;
 import com.zhivkoproject.ZClinic.model.service.NewsServiceModel;
 import com.zhivkoproject.ZClinic.service.NewsService;
 import org.modelmapper.ModelMapper;
@@ -113,6 +113,29 @@ public class NewsController {
         newsEditBindingModel.setId(id);
         newsService.editNews(newsEditBindingModel);
         return "redirect:/news";
+
+    }
+
+    @GetMapping("/search")
+    public String searchQuery(@Valid NewsSearchBindingModel newsSearchBindingModel,
+                              BindingResult bindingResult,
+                              Model model){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("newsSearchBindingModel", newsSearchBindingModel);
+            model.addAttribute("org.springframework.validation.BindingResult.newsSearchBindingModel",
+                    bindingResult);
+            return "news-search";
+        }
+
+        if (!model.containsAttribute("newsSearchBindingModel")) {
+            model.addAttribute("newsSearchBindingModel", newsSearchBindingModel);
+        }
+
+        if (!newsSearchBindingModel.isEmpty()) {
+            model.addAttribute("news", newsService.searchNews(newsSearchBindingModel));
+        }
+
+        return "news-search";
 
     }
 

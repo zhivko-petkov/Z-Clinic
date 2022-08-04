@@ -26,7 +26,7 @@ public class SecurityConfiguration {
                 antMatchers("/users/add", "/tests/add", "/tests/edit", "/news/add", "/news/delete").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_DOCTOR')").
                 antMatchers("/users/edit/**", "/orders/delete/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')").
                 antMatchers("/", "/users/login", "/users/register", "/tests", "/news", "/questions", "/about", "/doctors", "/news/**").permitAll().
-                        antMatchers("/api/**", "/css/**", "/images/**", "/js/**", "/templates/error/**", "/subscribe", "/subscription").permitAll().
+                        antMatchers("/api/**", "/css/**", "/images/**", "/js/**", "/templates/error/**", "/subscribe", "/subscription", "/news/search").permitAll().
                         antMatchers("/user-photos/**").authenticated().
                         antMatchers("/cart/**", "/result/**").authenticated().
 

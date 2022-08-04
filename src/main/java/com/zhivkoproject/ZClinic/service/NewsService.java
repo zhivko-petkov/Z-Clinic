@@ -2,6 +2,7 @@ package com.zhivkoproject.ZClinic.service;
 
 import com.zhivkoproject.ZClinic.model.binding.NewsAddBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.NewsEditBindingModel;
+import com.zhivkoproject.ZClinic.model.binding.NewsSearchBindingModel;
 import com.zhivkoproject.ZClinic.model.service.NewsServiceModel;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface NewsService {
     void editNews(NewsEditBindingModel newsEditBindingModel);
 
     void initNews();
+
+    List<NewsServiceModel> searchNews(NewsSearchBindingModel newsSearchBindingModel);
 }

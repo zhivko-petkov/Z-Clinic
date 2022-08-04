@@ -2,11 +2,13 @@ package com.zhivkoproject.ZClinic.service.impl;
 
 import com.zhivkoproject.ZClinic.model.binding.NewsAddBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.NewsEditBindingModel;
+import com.zhivkoproject.ZClinic.model.binding.NewsSearchBindingModel;
 import com.zhivkoproject.ZClinic.model.entity.News;
 import com.zhivkoproject.ZClinic.model.entity.User;
 import com.zhivkoproject.ZClinic.model.service.NewsServiceModel;
 import com.zhivkoproject.ZClinic.model.service.UserServiceModel;
 import com.zhivkoproject.ZClinic.repository.NewsRepository;
+import com.zhivkoproject.ZClinic.repository.NewsSpecification;
 import com.zhivkoproject.ZClinic.service.NewsService;
 import com.zhivkoproject.ZClinic.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -140,6 +142,14 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.save(firstNews);
         newsRepository.save(secondNews);
         newsRepository.save(thirdNews);
+
+    }
+
+    @Override
+    public List<NewsServiceModel>  searchNews(NewsSearchBindingModel newsSearchBindingModel) {
+        return this.newsRepository.findAll(new NewsSpecification(newsSearchBindingModel)).
+                stream().map(news -> modelMapper.map(news, NewsServiceModel.class)).
+                toList();
 
     }
 }
