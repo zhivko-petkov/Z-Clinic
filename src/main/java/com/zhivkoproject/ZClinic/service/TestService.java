@@ -20,4 +20,6 @@ public interface TestService {
     boolean isUniqueName(String name);
 
     void initTests();
+
+    void changeStatusTests();
 }

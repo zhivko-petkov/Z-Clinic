@@ -14,6 +14,7 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     @Query("select t from Test t where t.name = ?1")
     Optional<Test> findByName(String name);
 
-    @Query("select t from Test t where t.isOffer = ?1")
-    List<Test> findAllByOffer(boolean isOffer);
+
+    @Query("select t from Test t where t.isOffer = ?1 and t.isDelay = false")
+    List<Test> findAllByOfferAndDelayFalse(boolean isOffer);
 }

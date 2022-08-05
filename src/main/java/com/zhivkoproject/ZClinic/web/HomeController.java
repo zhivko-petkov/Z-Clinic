@@ -9,6 +9,7 @@ import com.zhivkoproject.ZClinic.service.SubscriptionService;
 import com.zhivkoproject.ZClinic.service.TestService;
 import com.zhivkoproject.ZClinic.service.UserService;
 import org.springframework.boot.Banner;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,7 +41,7 @@ public class HomeController {
 
     @GetMapping()
     public String index(Model model, Principal principal) throws IOException, InterruptedException {
-
+        System.out.println("refresh");
 
         if(principal != null){
             UserServiceModel userServiceModel = userService.findUser(principal.getName());

@@ -22,6 +22,9 @@ public class Test extends BaseEntity{
     @Column(nullable = false)
     private boolean isOffer;
 
+    @Column
+    private boolean isDelay;
+
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL)
     private List<Result> results;
 
@@ -30,6 +33,14 @@ public class Test extends BaseEntity{
     private User addedBy;
 
     public Test() {
+    }
+
+    public boolean isDelay() {
+        return isDelay;
+    }
+
+    public void setDelay(boolean delay) {
+        isDelay = delay;
     }
 
     public String getName() {

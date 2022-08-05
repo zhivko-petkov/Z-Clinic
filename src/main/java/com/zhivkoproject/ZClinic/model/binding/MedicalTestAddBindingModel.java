@@ -28,7 +28,17 @@ public class MedicalTestAddBindingModel {
 
     private String addedByUsername;
 
+    private boolean isDelay;
+
     public MedicalTestAddBindingModel() {
+    }
+
+    public boolean isDelay() {
+        return isDelay;
+    }
+
+    public void setDelay(boolean delay) {
+        isDelay = delay;
     }
 
     public String getName() {

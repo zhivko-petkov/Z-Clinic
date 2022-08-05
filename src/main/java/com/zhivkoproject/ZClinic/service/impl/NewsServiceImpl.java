@@ -12,6 +12,7 @@ import com.zhivkoproject.ZClinic.repository.NewsSpecification;
 import com.zhivkoproject.ZClinic.service.NewsService;
 import com.zhivkoproject.ZClinic.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
     private final UserService userService;
     private final ModelMapper modelMapper;
+
 
     public NewsServiceImpl(NewsRepository newsRepository, UserService userService, ModelMapper modelMapper) {
         this.newsRepository = newsRepository;
@@ -42,7 +44,7 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.save(news);
 
     }
-
+    @Scheduled(fixedDelay = 100)
     @Override
     public List<NewsServiceModel> getAllNews() {
         return newsRepository

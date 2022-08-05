@@ -16,6 +16,11 @@
           <i class="bi bi-plus-square">
           </i></a>
       </div>
+      <div class="b-flex justify-content-right mt-4 mb-3">
+        <a th:href="@{/news/search}" class="btn btn-primary btn-block w-20" type="submit">
+          Search
+        </a>
+      </div>
       <div class="row text-center g-4">
         <!--Element block-->
         <div th:each="n : ${allNews}" class="col-md">

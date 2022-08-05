@@ -38,7 +38,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<MedicalTestServiceModel> getAllMedicalTests() {
         return testRepository
-                .findAllByOffer(true)
+                .findAllByOfferAndDelayFalse(true)
                 .stream()
                 .map(test -> modelMapper.map(test, MedicalTestServiceModel.class))
                 .collect(Collectors.toList());
@@ -163,6 +163,17 @@ public class TestServiceImpl implements TestService {
 
 
 
+    }
+
+    @Override
+    public void changeStatusTests() {
+        List<Test> tests = testRepository.findAll();
+        for (Test test : tests) {
+            if (test.isDelay()){
+                test.setDelay(false);
+                testRepository.save(test);
+            }
+        }
     }
 
 

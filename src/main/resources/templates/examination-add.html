@@ -60,6 +60,13 @@
             <small id="priceError" class="form-text bg-danger text-light rounded invalid-feedback">Price must be positive</small>
           </div>
 
+          <div class="col mt-4">
+            <label for="schedule">Schedule</label>
+            <input th:field="*{delay}"
+                   th:errorclass="is-invalid"
+                   name="schedule" id="schedule" type="checkbox"  value="Yes">
+          </div>
+
           <div class="d-flex justify-content-center mt-4">
             <button class="btn btn-primary btn-block w-50" type="submit">Add</button>
           </div>
