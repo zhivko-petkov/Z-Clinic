@@ -228,7 +228,33 @@ public class NewsControllerMock {
     }
 
 
+    @Test
+    void testNewsSearchPage() throws Exception{
+        mockMvc.perform(get("/news/search")).
+                andExpect(status().isOk()).
+                andExpect(model().attributeExists("newsSearchBindingModel")).
+                andExpect(view().name("news-search"));
+    }
 
+    @Test
+    void testNewsSearch() throws Exception{
+        News news = initNews();
+
+        mockMvc.perform(get("/news/search")
+                        .param("title", news.getTitle())).
+                andExpect(status().isOk()).
+                andExpect(model().attributeExists("newsSearchBindingModel")).
+                andExpect(model().attributeExists("news")).
+                andExpect(view().name("news-search"));
+
+        mockMvc.perform(get("/news/search")
+                        .param("title", "l")).
+                andExpect(status().isOk()).
+                andExpect(model().attributeHasErrors("newsSearchBindingModel")).
+                andExpect(view().name("news-search"));
+
+
+    }
     private News initNews() {
         News news = new News();
         news.setCreatedOn(LocalDate.now());

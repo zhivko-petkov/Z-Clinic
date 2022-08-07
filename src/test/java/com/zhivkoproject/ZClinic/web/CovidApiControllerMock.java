@@ -26,4 +26,9 @@ public class CovidApiControllerMock {
         mockMvc.perform(get("/api/covidInBg"))
                 .andExpect(status().is(200));
     }
+
+    @Test
+    public void updateChache() throws Exception {
+
+    }
 }

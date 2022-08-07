@@ -1,12 +1,13 @@
 package com.zhivkoproject.ZClinic.model.binding;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class NewsSearchBindingModel {
 
+    @Size(min = 10)
     private String title;
 
-    private LocalDate date;
 
     public NewsSearchBindingModel() {
     }
@@ -19,15 +20,8 @@ public class NewsSearchBindingModel {
         this.title = title;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
     public boolean isEmpty() {
-        return (title == null || title.isEmpty()) && date == null;
+        return (title == null || title.isEmpty());
     }
 }
