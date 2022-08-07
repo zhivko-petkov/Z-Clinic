@@ -1,24 +1,26 @@
 package com.zhivkoproject.ZClinic.web;
 
-
-import com.zhivkoproject.ZClinic.model.entity.Cart;
-import com.zhivkoproject.ZClinic.model.entity.User;
-import com.zhivkoproject.ZClinic.model.entity.UserRole;
+import com.zhivkoproject.ZClinic.model.binding.ResultAddBindingModel;
+import com.zhivkoproject.ZClinic.model.entity.*;
 import com.zhivkoproject.ZClinic.model.enums.CategoryEnum;
 import com.zhivkoproject.ZClinic.model.enums.UserRoleEnum;
+import com.zhivkoproject.ZClinic.model.service.ResultServiceModel;
 import com.zhivkoproject.ZClinic.model.user.ZClinicUserDetails;
 import com.zhivkoproject.ZClinic.repository.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,12 +33,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CartControllerMock {
-    @Autowired
-    private MockMvc mockMvc;
+public class ResultControllerMock {
 
     @Autowired
-    private CartRepository cartRepository;
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Autowired
     private UserRoleRepository userRoleRepository;
@@ -48,10 +51,18 @@ public class CartControllerMock {
     private OrderRepository orderRepository;
 
     @Autowired
+    private TestRepository testRepository;
+
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private TestRepository testRepository;
+    private ResultRepository resultRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    private Cart currentCart;
 
     private User addedBy;
 
@@ -96,6 +107,8 @@ public class CartControllerMock {
                 user.getSurname(),
                 authorities);
 
+        currentCart = cartInit();
+
     }
 
     @AfterEach
@@ -104,48 +117,47 @@ public class CartControllerMock {
         orderRepository.deleteAll();
         testRepository.deleteAll();
         cartRepository.deleteAll();
+        resultRepository.deleteAll();
     }
 
     @Test
-    void cartIndexPage() throws Exception{
-        mockMvc.perform(get("/cart").
+    void resultIndexPage() throws Exception {
+        Order order = orderInit();
+        mockMvc.perform(get("/result/order/" + order.getId()).
+                        with(user(user)).
+                        with(csrf())).
+                andExpect(status().isOk()).
+                andExpect(model().attributeExists("resultsOrder")).
+                andExpect(view().name("results-home"));
+    }
+
+    @Test
+    void resultAddPage() throws Exception {
+        Order order = orderInit();
+        List<Result> results = new ArrayList<>();
+        Result result = new Result();
+        result.setResult(BigDecimal.valueOf(12));
+        result.setTest(initTest());
+        result.setOrder(order);
+        results.add(result);
+        order.setResults(results);
+
+        mockMvc.perform(get("/result/order/add/" + order.getId()).
+                        with(user(user)).
+                        with(csrf())).
+                andExpect(status().isOk()).
+                andExpect(model().attributeExists("form")).
+                andExpect(view().name("results-add-edit"));
+
+        /*ResultAddBindingModel resultAddBindingModel = new ResultAddBindingModel();
+        resultAddBindingModel.addResult(modelMapper.map(order.getResults().get(0), ResultServiceModel.class));
+*/
+        /*mockMvc.perform(post("/result/save").
                 with(user(user)).
                 with(csrf())).
                 andExpect(status().isOk()).
-                andExpect(model().attributeExists("userCart")).
-                andExpect(model().attributeExists("countOfTestsInCart")).
-                andExpect(model().attributeExists("totalPrice")).
-                andExpect(view().name("orders-home"));
+                andExpect(view().name("redirect:/orders"));*/
     }
-
-    @Test
-    void cartAddAndDeleteTest() throws Exception{
-        com.zhivkoproject.ZClinic.model.entity.Test test = initTest();
-
-        mockMvc.perform(get("/cart/add/" + test.getId()).
-                        with(user(user)).
-                        with(csrf())).
-                andExpect(status().is3xxRedirection()).
-                andExpect(view().name("redirect:/tests"));
-
-        mockMvc.perform(get("/cart/delete/" + test.getId()).
-                        with(user(user)).
-                        with(csrf())).
-                andExpect(status().is3xxRedirection()).
-                andExpect(view().name("redirect:/cart"));
-    }
-
-    @Test
-    void makeOrderTest() throws Exception {
-        Cart cart = cartInit();
-
-        mockMvc.perform(get("/cart/order/" + cart.getId()).
-                        with(user(user)).
-                        with(csrf())).
-                andExpect(status().is3xxRedirection()).
-                andExpect(view().name("redirect:/"));
-    }
-
 
 
     private com.zhivkoproject.ZClinic.model.entity.Test initTest() {
@@ -165,7 +177,6 @@ public class CartControllerMock {
 
     private Cart cartInit() {
         com.zhivkoproject.ZClinic.model.entity.Test test = initTest();
-
         List<com.zhivkoproject.ZClinic.model.entity.Test> testList = new ArrayList<>();
         testList.add(test);
 
@@ -177,5 +188,14 @@ public class CartControllerMock {
         return save;
     }
 
+    private Order orderInit() {
+        Order order = new Order();
+        order.setUser(addedBy);
+        order.setResults(currentCart.getUser().getResults());
+        order.setCreatedOn(LocalDateTime.now());
+        order.setReady(true);
+
+        return orderRepository.save(order);
+    }
 
 }

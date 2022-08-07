@@ -1,24 +1,22 @@
 package com.zhivkoproject.ZClinic.web;
 
-
-import com.zhivkoproject.ZClinic.model.entity.Cart;
-import com.zhivkoproject.ZClinic.model.entity.User;
-import com.zhivkoproject.ZClinic.model.entity.UserRole;
+import com.zhivkoproject.ZClinic.model.entity.*;
 import com.zhivkoproject.ZClinic.model.enums.CategoryEnum;
 import com.zhivkoproject.ZClinic.model.enums.UserRoleEnum;
 import com.zhivkoproject.ZClinic.model.user.ZClinicUserDetails;
 import com.zhivkoproject.ZClinic.repository.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,17 +24,14 @@ import java.util.stream.Collectors;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CartControllerMock {
-    @Autowired
-    private MockMvc mockMvc;
+public class OrderControllerMock {
 
     @Autowired
-    private CartRepository cartRepository;
+    private MockMvc mockMvc;
 
     @Autowired
     private UserRoleRepository userRoleRepository;
@@ -48,10 +43,18 @@ public class CartControllerMock {
     private OrderRepository orderRepository;
 
     @Autowired
+    private TestRepository testRepository;
+
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private TestRepository testRepository;
+    private ResultRepository resultRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    private Cart currentCart;
 
     private User addedBy;
 
@@ -96,6 +99,8 @@ public class CartControllerMock {
                 user.getSurname(),
                 authorities);
 
+        currentCart = cartInit();
+
     }
 
     @AfterEach
@@ -104,48 +109,53 @@ public class CartControllerMock {
         orderRepository.deleteAll();
         testRepository.deleteAll();
         cartRepository.deleteAll();
+        resultRepository.deleteAll();
     }
 
-    @Test
-    void cartIndexPage() throws Exception{
-        mockMvc.perform(get("/cart").
-                with(user(user)).
-                with(csrf())).
-                andExpect(status().isOk()).
-                andExpect(model().attributeExists("userCart")).
-                andExpect(model().attributeExists("countOfTestsInCart")).
-                andExpect(model().attributeExists("totalPrice")).
-                andExpect(view().name("orders-home"));
-    }
+    //only alone
+    @org.junit.jupiter.api.Test
+    void ordersGetByIdPage() throws Exception {
 
-    @Test
-    void cartAddAndDeleteTest() throws Exception{
-        com.zhivkoproject.ZClinic.model.entity.Test test = initTest();
-
-        mockMvc.perform(get("/cart/add/" + test.getId()).
-                        with(user(user)).
-                        with(csrf())).
-                andExpect(status().is3xxRedirection()).
-                andExpect(view().name("redirect:/tests"));
-
-        mockMvc.perform(get("/cart/delete/" + test.getId()).
-                        with(user(user)).
-                        with(csrf())).
-                andExpect(status().is3xxRedirection()).
-                andExpect(view().name("redirect:/cart"));
-    }
-
-    @Test
-    void makeOrderTest() throws Exception {
-        Cart cart = cartInit();
-
-        mockMvc.perform(get("/cart/order/" + cart.getId()).
+        mockMvc.perform(get("/cart/order/" + currentCart.getId()).
                         with(user(user)).
                         with(csrf())).
                 andExpect(status().is3xxRedirection()).
                 andExpect(view().name("redirect:/"));
+
+        mockMvc.perform(get("/orders/" + 1).
+                        with(user(user)).
+                        with(csrf())).
+                andExpect(status().isOk()).
+                andExpect(model().attributeExists("loggedUserOrders")).
+                andExpect(view().name("results-index"));
+
+        mockMvc.perform(get("/orders/delete/" + 1).
+                        with(user(user)).
+                        with(csrf())).
+                andExpect(status().is3xxRedirection()).
+                andExpect(view().name("redirect:/orders"));
     }
 
+
+    @org.junit.jupiter.api.Test
+    void ordersIndexPage() throws Exception {
+        mockMvc.perform(get("/orders").
+                        with(user(user)).
+                        with(csrf())).
+                andExpect(status().isOk()).
+                andExpect(model().attributeExists("orders")).
+                andExpect(view().name("orders-index"));
+    }
+
+    @org.junit.jupiter.api.Test
+    void ordersIndexLoggedUserPage() throws Exception {
+        mockMvc.perform(get("/orders/loggedUser").
+                        with(user(user)).
+                        with(csrf())).
+                andExpect(status().isOk()).
+                andExpect(model().attributeExists("loggedUserOrders")).
+                andExpect(view().name("results-index"));
+    }
 
 
     private com.zhivkoproject.ZClinic.model.entity.Test initTest() {
@@ -165,7 +175,6 @@ public class CartControllerMock {
 
     private Cart cartInit() {
         com.zhivkoproject.ZClinic.model.entity.Test test = initTest();
-
         List<com.zhivkoproject.ZClinic.model.entity.Test> testList = new ArrayList<>();
         testList.add(test);
 
@@ -176,6 +185,5 @@ public class CartControllerMock {
         Cart save = cartRepository.save(cart);
         return save;
     }
-
 
 }
