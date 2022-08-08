@@ -185,7 +185,8 @@ public class UserController {
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal UserDetails userDetails){
 
-        boolean checkUser = userService.checkUserPassword(userDetails.getUsername(), userChangePasswordBindingModel.getOldPassword());
+        boolean checkUser = userService.checkUserPassword(userDetails.getUsername(),
+                userChangePasswordBindingModel.getOldPassword());
 
 
 
@@ -218,22 +219,9 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')")
     public String index(@AuthenticationPrincipal UserDetails userDetails,
                            Model model){
-
         List<UserServiceModel> getAllUsers = userService.getAllUsers();
-        UserRole admin = new UserRole();
-        admin.setUserRole(UserRoleEnum.ADMIN);
-
-        UserRole moderator = new UserRole();
-        moderator.setUserRole(UserRoleEnum.MODERATOR);
-
-        UserRole doctor = new UserRole();
-        doctor.setUserRole(UserRoleEnum.DOCTOR);
-
         model.addAttribute("getAllUsers", getAllUsers);
-
-
         return "user-index";
-
     }
 
     @ModelAttribute("userAddBindingModel")
@@ -244,13 +232,12 @@ public class UserController {
     @GetMapping("/add")
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')")
     public String add(Model model) {
-
-        if(!model.containsAttribute("isUsernameUnique")) {
+        if(!model.containsAttribute("isUsernameUnique"))
             model.addAttribute("isUsernameUnique", true);
-        }
-        if(!model.containsAttribute("isEmailUnique")) {
+
+        if(!model.containsAttribute("isEmailUnique"))
             model.addAttribute("isEmailUnique", true);
-        }
+
         return "user-add";
     }
 
@@ -285,18 +272,17 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, Principal principal){
-        userService.deleteUser(id);
         if (userService.findUser(principal.getName()).getId() == id){
+            userService.deleteUser(id);
             return "redirect:/users/logout";
         }
+        userService.deleteUser(id);
         return "redirect:/users";
     }
-
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Principal principal, Model model){
         String username = userService.findUsernameById(id);
-
         UserEditBindingModel userEditBindingModel = modelMapper.map(userService.findUser(username), UserEditBindingModel.class);
         userEditBindingModel.setUsername(username);
         model.addAttribute("userEditBindingModel", userEditBindingModel);
