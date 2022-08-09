@@ -19,7 +19,12 @@
 
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-primary navbar-primary">
     <div class="container">
-        <a href="/" class="navbar-brand text-light"><strong>Z-Clinic</strong></a>
+        <a href="/" class="navbar-brand text-light">
+            <img th:src="@{/images/logo-Zclinic.png}"
+                 width="75"
+                 alt=""
+                 class="d-inline-block align-middle mr-2">
+        </a>
 
         <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navigation-menu">
@@ -80,9 +85,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/questions" class="nav-link text-light">Questions</a>
-                </li>
-                <li class="nav-item">
                     <a href="/about" class="nav-link text-light">About</a>
                 </li>
             </ul>
@@ -105,8 +107,7 @@
                             role="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">
-                        <img th:src="${userPhoto}" class="rounded-circle" height="25" alt=""  loading="lazy"
-                        />
+
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuAvatar">
                         <li><a class="dropdown-item" href="/users/profile">Account</a></li>
@@ -149,6 +150,6 @@
         </a>
     </div>
 </footer>
-
+<script th:src="@{/js/profileImg.js}"></script>
 </html>
 

@@ -39,6 +39,11 @@ public class HomeController {
         this.subscriptionService = subscriptionService;
     }
 
+    @GetMapping("/about")
+    public String about() {
+        return "about-us";
+    }
+
     @GetMapping()
     public String index(Model model, Principal principal) throws IOException, InterruptedException {
         System.out.println("refresh");

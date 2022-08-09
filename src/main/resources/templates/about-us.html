@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+
+
+
+<body>
+
+<!--Navbar-->
+<nav th:replace="~{fragments/commons::navbar}"></nav>
+
+<!--Info-->
+<section class="p-5">
+    <div class="container">
+        <h2 class="m-1 text-dark text-center">
+            Who we are
+        </h2>
+        <div class="m-5 row align-items-center justify-content-between">
+            <div class="col-md p-1">
+                <p class="lead">
+                    The Z-Clinic is a modern general practice based in the heart of the Bulgaria.
+                    The General Practice that has been providing quality medical care since 1990.
+                    Our doctors bring a spectrum of experience and professional expertise. Medical tests can help detect a condition,
+                    determine a diagnosis, plan treatment, check to see if treatment is working, or monitor the condition over time.
+                    A doctor may order these tests as part of a routine checkup, to check for certain diseases and disorders,
+                    or to monitor your health.
+                </p>
+            </div>
+        </div>
+
+        <h2 class="m-1 text-dark text-center">
+            Where you can <span class="text-primary">find us</span>
+        </h2>
+
+        <div class="m-5 row align-items-center justify-content-between">
+            <div class="col-md">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.841249652842!2d23.315736315308214!3d42.68590497916641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa851045e62c3f%3A0x75c66d6bd9bbbc0b!2z0LHRg9C7LiDigJ7QktC40YLQvtGI0LDigJwsINCh0L7RhNC40Y8!5e0!3m2!1sbg!2sbg!4v1660039789321!5m2!1sbg!2sbg" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="col-md p-5">
+                <h4 class="text-primary">
+                    Sofia, bul. Vitosha
+                </h4>
+
+                <p>
+                    <i class="bi bi-clock"></i>
+                    Monday – Friday: 7.30 – 18.00
+                </p>
+
+                <p>
+                    <i class="bi bi-envelope"></i>
+                    tests@zclinic.bg
+                </p>
+
+                <p>
+                    <i class="bi bi-telephone"></i>
+                    0 700 00 777
+                </p>
+
+                <p>
+                    <i class="bi bi-credit-card"></i>
+                    Here You can pay Your medical tests with a card (POS terminal).
+                </p>
+            </div>
+        </div>
+
+        <div class="m-5 row align-items-center justify-content-between">
+        <div class="col-md">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2958.097844739163!2d24.752747150803213!3d42.14819297909966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd1a23a867a4b%3A0xd9c4cc8dc9c31921!2z0YPQuy4g4oCe0JTRg9GI0L4g0KXQsNC00LbQuNC00LXQutC-0LLigJwgMiwgOCwgNDAwMCDQodGC0LDRgNC40Y8g0LPRgNCw0LQsINCf0LvQvtCy0LTQuNCy!5e0!3m2!1sbg!2sbg!4v1660042696244!5m2!1sbg!2sbg"
+                    width="100%" height="300"
+                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="col-md p-5">
+            <h4 class="text-primary">
+                Plovdiv, 2 Dusho Hadzydekov
+            </h4>
+
+            <p>
+                <i class="bi bi-clock"></i>
+                Monday – Friday: 7.30 – 18.00
+            </p>
+
+            <p>
+                <i class="bi bi-envelope"></i>
+                tests@zclinic.bg
+            </p>
+
+            <p>
+                <i class="bi bi-telephone"></i>
+                0 700 00 888
+            </p>
+
+            <p>
+                <i class="bi bi-credit-card"></i>
+                Here You can pay Your medical tests with a card (POS terminal).
+            </p>
+        </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<!-- Footer -->
+<footer th:replace="~{fragments/commons::footer}">
+</footer>
+</body>
+</html>
