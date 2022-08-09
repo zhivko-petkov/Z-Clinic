@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -22,11 +23,13 @@ public class UserPhotoApiController {
 
     @GetMapping("/api/loggedUserPhoto")
     @Transactional
-    public ResponseEntity<String> userPhoto(Principal principal) {
+    public ResponseEntity<Map<String, String>> userPhoto(Principal principal) {
+        Map<String, String> photo = new HashMap<>();
         if (principal != null){
             UserServiceModel userServiceModel = userService.findUser(principal.getName());
-            return new ResponseEntity<String>(userServiceModel.getImageUrl(), HttpStatus.OK);
+            photo.put("imageAddress", userServiceModel.getImageUrl());
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<Map<String, String>>(photo, HttpStatus.OK);
     }
 }
