@@ -165,7 +165,7 @@
         <!--Element block-->
         <div class="col-md" th:each="a : ${allNews}">
           <div class="card bg-light text-dark">
-            <div class="card-body text-center">
+            <div class="card-body text-center" style="height: 440px;overflow:hidden;" th:onclick="'javascript:redirectMethod('+*{a.id}+')'">
               <div class="h1 mb-3">
                 <img class="card-img-top"
                   data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
@@ -176,8 +176,9 @@
               <h3 class="card-title mb-3" th:text="*{a.getTitle()}"></h3>
               <p class="card-text" th:text="*{a.getContent()}">
               </p>
-              <a th:href="@{/news/{id}(id = *{a.getId()})}" class="btn btn-primary">Read More</a>
+
             </div>
+
           </div>
         </div>
 

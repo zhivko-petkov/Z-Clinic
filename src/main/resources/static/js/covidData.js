@@ -2,7 +2,9 @@ fetch('http://localhost:8080/api/covidInBg')
     .then((response) => response.json())
     .then((data) => {
         let newCasesBg = data.lastDayCases;
-        const dateOfStatistic = new Date(data.date).toLocaleDateString('en-GB');
+        let date = new Date(data.date);
+        date.setDate(date.getDate() + 2);
+        const dateOfStatistic = date.toLocaleDateString('en-GB');
         let allCases = data.allCases;
 
         const span = document.querySelector("#newCasesInBg");
@@ -45,3 +47,7 @@ fetch('http://localhost:8080/api/covidInLab')
                <p class="text-dark bg-warning fs-12 text-center">${dateOfStatistic}</p>`;
         secondSpan.insertAdjacentHTML("afterbegin", secondHtml);
     });
+
+function redirectMethod(a) {
+        location.href = '/news/' + a;
+}

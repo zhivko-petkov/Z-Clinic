@@ -46,12 +46,7 @@ public class HomeController {
 
     @GetMapping()
     public String index(Model model, Principal principal) throws IOException, InterruptedException {
-        System.out.println("refresh");
-
-        if(principal != null){
-            UserServiceModel userServiceModel = userService.findUser(principal.getName());
-            model.addAttribute("userPhoto", userServiceModel.getImageUrl());
-        }
+        //System.out.println("refresh");
 
         List<NewsServiceModel> news = newsService.getAllNews();
         if (news.size() > 2){

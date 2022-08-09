@@ -17,12 +17,12 @@
     <div class="container">
         <div class="bd-example">
             <!--If admin/moderator-->
-            <!--<div class="d-flex justify-content-left mt-4 mb-3">
-               <a href="/orders/add" class="btn btn-primary btn-block w-20" type="submit" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
-                   <i class="bi bi-person-plus"></i>
-               </a>
-           </div>-->
-           <table class="table table-warning table-hover">
+            <div class="d-flex justify-content-left mt-4 mb-3">
+                <a href="/users/add" class="btn btn-primary btn-block w-20" type="submit" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                    <i class="bi bi-person-plus"></i>
+                </a>
+            </div>
+           <table class="table table-responsive table-warning table-hover">
                <thead>
                <tr>
                    <th scope="col">#</th>
