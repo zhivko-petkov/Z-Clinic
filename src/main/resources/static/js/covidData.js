@@ -1,11 +1,10 @@
 fetch('http://localhost:8080/api/covidInBg')
     .then((response) => response.json())
     .then((data) => {
-        let newCasesBg = data.lastDayCases;
+        let newCasesBg = commify(data.lastDayCases);
         let date = new Date(data.date);
         date.setDate(date.getDate() + 2);
         const dateOfStatistic = date.toLocaleDateString('en-GB');
-        let allCases = data.allCases;
 
         const span = document.querySelector("#newCasesInBg");
         const html = `
@@ -14,7 +13,7 @@ fetch('http://localhost:8080/api/covidInBg')
                 <p class="text-dark bg-warning fs-12 text-center">${dateOfStatistic}</p>`;
         span.insertAdjacentHTML("afterbegin", html)
 
-        let allNewCases = data.allCases;
+        let allNewCases = commify(data.allCases);
 
         const secondSpan = document.querySelector("#allCasesInBg");
         const secondHtml = `
@@ -27,7 +26,7 @@ fetch('http://localhost:8080/api/covidInBg')
 fetch('http://localhost:8080/api/covidInLab')
     .then((response) => response.json())
     .then((data) => {
-        let newCases = data.lastDayCases;
+        let newCases = commify(Number(data.lastDayCases));
         const dateOfStatistic = new Date(data.date).toLocaleDateString('en-GB');
 
 
@@ -38,7 +37,7 @@ fetch('http://localhost:8080/api/covidInLab')
                 <p class="text-dark bg-warning fs-12 text-center">${dateOfStatistic}</p>`;
         span.insertAdjacentHTML("afterbegin", html)
 
-        let allCases = data.labCases;
+        let allCases = commify(Number(data.labCases));
 
         const secondSpan = document.querySelector("#allCasesInLab");
         const secondHtml = `
@@ -50,4 +49,12 @@ fetch('http://localhost:8080/api/covidInLab')
 
 function redirectMethod(a) {
         location.href = '/news/' + a;
+}
+
+function commify(n) {
+        var parts = n.toString().split(".");
+        const numberPart = parts[0];
+        const decimalPart = parts[1];
+        const thousands = /\B(?=(\d{3})+(?!\d))/g;
+        return numberPart.replace(thousands, " ") + (decimalPart ? "." + decimalPart : "");
 }
