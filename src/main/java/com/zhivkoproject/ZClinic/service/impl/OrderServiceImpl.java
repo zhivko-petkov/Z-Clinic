@@ -138,7 +138,9 @@ public class OrderServiceImpl implements OrderService {
             resultServiceModel.setTest(medicalTestServiceModel);
             resultServiceModel.setId(result.getId());
             resultServiceModel.setResult(result.getResult());
+            resultServiceModel.setFullNameOfUser(order.getUser().getFirstName() + " " + order.getUser().getSurname());
             resultServiceModels.add(resultServiceModel);
+
         }
 
         return resultServiceModels;

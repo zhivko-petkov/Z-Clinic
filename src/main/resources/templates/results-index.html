@@ -13,10 +13,10 @@
 <nav th:replace="~{fragments/commons::navbar}"></nav>
 
   <!--Result-->
-  <section class="p-5">
+  <section class="pt-5 pb-5">
     <div class="container">
       <h1 th:if="${loggedUserOrders.size() > 0}" class="text-dark border-bottom mb-3">Last results</h1>
-      <h1 th:if="${loggedUserOrders.size() == 0}"class="text-dark border-bottom mb-3">Last results</h1>
+      <h1 th:if="${loggedUserOrders.size() == 0}"class="d-flex justify-content-center mt-4 mb-4 pt-5 pb-5">No orders</h1>
       <div th:if="${loggedUserOrders.size() > 0}" class="row text-center">
         <!--Element-->
         <div class="col-md mb-3">

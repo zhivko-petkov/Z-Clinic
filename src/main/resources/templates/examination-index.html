@@ -13,7 +13,7 @@
 
 <div>
   <!--Info-->
-  <section class="p-5">
+  <section class="pt-5">
     <div class="container">
       <div class="row align-items-center justify-content-between">
         <div class="col-md">
@@ -37,10 +37,10 @@
   </section>
 
   <!--Table with tests-->
-  <section class="p-5">
+  <section>
 
     <!--Element-->
-    <div class="container">
+    <div class="container pb-5">
       <div class="bd-example">
         <!--If admin/moderator-->
         <div class="d-flex justify-content-left mt-4 mb-3" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR','ROLE_DOCTOR')">
@@ -48,7 +48,7 @@
             <i class="bi bi-plus-square">
             </i></a>
         </div>
-        <table class="table table-warning table-hover">
+        <table class="table table-responsive table-warning table-hover">
           <thead>
             <tr>
               <th scope="col">#</th>

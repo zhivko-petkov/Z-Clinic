@@ -13,14 +13,18 @@
 <nav th:replace="~{fragments/commons::navbar}"></nav>
 
 
-<div>
+<div class="pt-5 pb-5">
 
     <!--Table with results-->
-    <section class="p-5">
+    <section class="pt-5 pb-5">
 
         <!--Element-->
         <div class="container">
             <div class="bd-example">
+                <div class="d-flex justify-content-center mb-3">
+                    <h2 th:text="${resultsOrder.get(0).getFullNameOfUser()}" class="text-primary">
+                    </h2>
+                </div>
                 <!--If admin/moderator-->
                 <table class="table table-responsive table-warning table-hover">
                     <thead>

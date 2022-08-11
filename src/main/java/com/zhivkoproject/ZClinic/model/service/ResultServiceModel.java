@@ -12,6 +12,7 @@ public class ResultServiceModel {
     private Long id;
     private MedicalTestServiceModel test;
     private BigDecimal result;
+    private String fullNameOfUser;
 
     public ResultServiceModel() {
     }
@@ -38,5 +39,13 @@ public class ResultServiceModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFullNameOfUser() {
+        return fullNameOfUser;
+    }
+
+    public void setFullNameOfUser(String fullNameOfUser) {
+        this.fullNameOfUser = fullNameOfUser;
     }
 }
