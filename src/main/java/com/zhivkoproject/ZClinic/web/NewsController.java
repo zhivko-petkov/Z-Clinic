@@ -77,7 +77,7 @@ public class NewsController {
                          Model model){
         newsService.deleteById(id);
 
-        return "news-index";
+        return "redirect:/news";
 
     }
 

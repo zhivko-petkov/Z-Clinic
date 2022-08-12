@@ -64,12 +64,12 @@
                             <i class="bi bi-eye"></i>
                         </a>
 
-                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" sec:authorize="hasRole('ADMIN')">
+                        <a class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target='#myModal' + *{o.getId}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
                             <i class="bi bi-trash"></i>
                         </a>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" th:attr="id='myModal'+ *{o.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <a th:href="@{/orders/delete/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">Delete</a>
+                                        <a th:href="@{/orders/delete/{id}(id = *{o.id})}" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">Delete</a>
                                     </div>
                                 </div>
                             </div>

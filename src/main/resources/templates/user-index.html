@@ -59,12 +59,12 @@
                   </a>
 
 
-                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" sec:authorize="hasRole('ADMIN')">
+                <a class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target='#myModal'+*{u.getId}" sec:authorize="hasAnyRole('ROLE_ADMIN')">
                   <i class="bi bi-trash"></i>
                 </a>
 
                 <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" th:attr="id='myModal'+ *{u.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">

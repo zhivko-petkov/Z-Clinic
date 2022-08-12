@@ -62,7 +62,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void deleteById(Long id) {
-        newsRepository.deleteById(id);
+        News news = newsRepository.findById(id).orElse(null);
+        newsRepository.delete(news);
     }
 
     @Override

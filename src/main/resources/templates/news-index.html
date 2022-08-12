@@ -43,13 +43,13 @@
                   <i class="bi bi-pen"></i>
                 </a>
 
-                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
+                <a class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target='#myModal'+*{n.getId}" data-bs-target="#myModal" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_DOCTOR')">
                   <i class="bi bi-trash"></i>
                 </a>
               </div>
 
               <!-- Modal -->
-              <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" th:attr="id='myModal'+ *{n.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
