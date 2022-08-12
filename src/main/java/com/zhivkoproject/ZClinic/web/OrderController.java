@@ -67,7 +67,6 @@ public class OrderController {
 
     }
 
-    //TODO: RESULTS
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id,
@@ -77,61 +76,6 @@ public class OrderController {
 
         return "redirect:/orders";
     }
-/*
-    @GetMapping("/add/{id}")
-    public String add(@PathVariable Long id, Model model) {
-        model.addAttribute("userId", id);
-        model.addAttribute("allTests", testService.getAllMedicalTests());
-        return "orders-add";
-    }
-
-    @PostMapping("/add/{id}")
-    public String add(@Valid OrderAddBindingModel orderAddBindingModel,
-                      BindingResult bindingResult,
-                      RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("orderAddBindingModel", orderAddBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderAddBindingModel",
-                    bindingResult);
-        }
-        orderService.addOrder(orderAddBindingModel);
-        return "orders-add";
-    }
-
-*/
-/*
-    @GetMapping("/result/add/{id}")
-    public String addResult(@PathVariable Long id,
-                            @AuthenticationPrincipal UserDetails userDetails,
-                            Model model) {
-        List<ResultServiceModel> resultsOrder = orderService.getOrderResults(id);
-        model.addAttribute("resultsOrder", resultsOrder);
-        model.addAttribute("resultAddBindingModel", resultAddBindingModel());
-
-        return "results-add-edit";
-
-    }*/
-/*
-    @PostMapping("/result/add/{id}")
-    public String addResult(@PathVariable Long id,
-                       @Valid ResultAddBindingModel resultAddBindingModel,
-                       BindingResult bindingResult,
-                       RedirectAttributes redirectAttributes,
-                       @AuthenticationPrincipal UserDetails userDetails){
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("resultAddBindingModel", resultAddBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.resultAddBindingModel",
-                    bindingResult);
-            return "redirect:orders";
-        }
-
-        orderService.setResult(id, resultAddBindingModel);
-
-        return "redirect:/orders/result/add/{id}";
-    }
-*/
-
 
 
 

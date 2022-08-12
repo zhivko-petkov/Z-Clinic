@@ -33,10 +33,10 @@ public class CartController {
         int countOfTestsInCart = 0;
         BigDecimal totalPrice = new BigDecimal(0);
 
-        if (currentUserCart.getId() != null){
+        if (currentUserCart.getId() != null) {
             countOfTestsInCart = currentUserCart.getTests().size();
 
-            for (MedicalTestServiceModel medicalTestServiceModel: currentUserCart.getTests()) {
+            for (MedicalTestServiceModel medicalTestServiceModel : currentUserCart.getTests()) {
                 totalPrice = totalPrice.add(medicalTestServiceModel.getPrice());
             }
         }
@@ -44,18 +44,20 @@ public class CartController {
         model.addAttribute("countOfTestsInCart", countOfTestsInCart);
         model.addAttribute("totalPrice", totalPrice);
 
-    return "orders-home";
+        return "orders-home";
     }
 
     @GetMapping("/add/{id}")
-    public String add(@PathVariable Long id, Principal principal){
+    public String add(@PathVariable Long id, Principal principal) {
+
         cartService.addMedicalTestsInCart(id, principal.getName());
 
         return "redirect:/tests";
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id, Principal principal){
+    public String delete(@PathVariable Long id, Principal principal) {
+
         cartService.deleteMedicalTestInCart(id, principal.getName());
 
         return "redirect:/cart";
@@ -63,14 +65,12 @@ public class CartController {
 
     @GetMapping("/order/{id}")
     public String order(@PathVariable Long id, Principal principal) {
+
         cartService.makeOrder(id, principal.getName());
         cartService.removeCart(id, principal.getName());
 
         return "redirect:/";
     }
 
-
-
-   // @PostMapping()
 
 }

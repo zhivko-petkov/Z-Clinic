@@ -35,9 +35,10 @@ public class CartServiceImpl implements CartService {
     public void addMedicalTestsInCart(Long medicalTestId, String username) {
         Cart cart = cartRepository.findByCreatedByUsername(username).orElse(null);
         Test addedTest = testRepository.findById(medicalTestId).orElse(null);
-        if(cart != null){
+
+        if (cart != null) {
             List<Test> testInCart = cart.getTests();
-            if(!testInCart.contains(addedTest)){
+            if (!testInCart.contains(addedTest)) {
                 testInCart.add(addedTest);
             }
             cart.setTests(testInCart);
@@ -52,6 +53,7 @@ public class CartServiceImpl implements CartService {
         }
 
         cartRepository.save(cart);
+
     }
 
 
@@ -59,7 +61,7 @@ public class CartServiceImpl implements CartService {
     public CartServiceModel findCartByUser(String username) {
         Cart currentCart = cartRepository.findByCreatedByUsername(username).orElse(null);
 
-        if(currentCart != null)
+        if (currentCart != null)
             return modelMapper.map(currentCart, CartServiceModel.class);
 
         return new CartServiceModel();
@@ -82,7 +84,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepository.findByCreatedByUsername(username).orElse(null);
         User user = userRepository.findByUsername(username).orElse(null);
 
-        if(cart != null){
+        if (cart != null) {
             Order order = new Order();
             //order.setCart(cart);
             order.setCreatedOn(LocalDateTime.now());
@@ -102,7 +104,7 @@ public class CartServiceImpl implements CartService {
 
 
             List<Order> addedOrders = orderRepository.findOrdersByUserId(user.getId());
-            Order newOrder = addedOrders.get(addedOrders.size()-1);
+            Order newOrder = addedOrders.get(addedOrders.size() - 1);
 
             List<Result> resultList = new ArrayList<>();
             for (Test test : cart.getTests()) {
@@ -132,11 +134,11 @@ public class CartServiceImpl implements CartService {
         List<Cart> cartList = cartRepository.findAll();
         Test test = testRepository.findById(id).orElse(null);
         for (Cart cart : cartList) {
-            if (cart.getTests().contains(test)){
+            if (cart.getTests().contains(test)) {
                 List<Test> testList = cart.getTests();
                 int indexOf = 0;
                 for (int i = 0; i < testList.size(); i++) {
-                    if (testList.get(i).getId() == id){
+                    if (testList.get(i).getId() == id) {
                         indexOf = i;
                     }
                 }
@@ -146,4 +148,6 @@ public class CartServiceImpl implements CartService {
             }
         }
     }
+
+
 }

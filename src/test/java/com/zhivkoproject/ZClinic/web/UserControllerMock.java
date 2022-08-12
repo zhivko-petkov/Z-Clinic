@@ -47,7 +47,8 @@ public class UserControllerMock {
     private ZClinicUserDetails user;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
+
         User user = new User();
 
         //ROLE ADMIN
@@ -85,29 +86,39 @@ public class UserControllerMock {
                 user.getSurname(),
                 authorities);
 
+
     }
 
     @AfterEach
-    void refresh() { userRepository.deleteAll();}
+    void refresh() {
+
+        userRepository.deleteAll();
+
+    }
 
     @Test
     void testLoginPageShown() throws Exception {
+
         mockMvc.perform(get("/users/login")).
                 andExpect(status().isOk()).
                 andExpect(view().name("login"));
+
     }
 
     @Test
     void testRegistrationPageShown() throws Exception {
+
         mockMvc.perform(get("/users/register")).
                 andExpect(status().isOk()).
                 andExpect(model().attributeExists("isUsernameUnique")).
                 andExpect(model().attributeExists("isEmailUnique")).
                 andExpect(view().name("register"));
+
     }
 
     @Test
     void testUserRegistration() throws Exception {
+
         mockMvc.perform(post("/users/register").
                         param("username", "tonka").
                         param("firstName", "Tonka").
@@ -121,29 +132,33 @@ public class UserControllerMock {
                         .with(csrf())
                 ).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
+
         assertEquals(2, userRepository.count());
 
     }
 
     @Test
     public void registerFailPostShownTest() throws Exception {
+
         mockMvc.perform(post("/users/register").
-                        param("username", "").
-                        param("firstName", "Tonka").
-                        param("surname", "Koleva").
-                        param("email", "tonka@example.com").
-                        param("password", "topsecret").
-                        param("confirmPassword", "1").
-                        param("address", "Sofia").
-                        param("additionalDetails", "She is a famous star.").
-                        param("imageUrl", "https://bit.ly/3oN6btc")
-                        .with(csrf())
-                ).andExpect(redirectedUrl("/users/register"));
+                param("username", "").
+                param("firstName", "Tonka").
+                param("surname", "Koleva").
+                param("email", "tonka@example.com").
+                param("password", "topsecret").
+                param("confirmPassword", "1").
+                param("address", "Sofia").
+                param("additionalDetails", "She is a famous star.").
+                param("imageUrl", "https://bit.ly/3oN6btc")
+                .with(csrf())
+        ).andExpect(redirectedUrl("/users/register"));
         assertEquals(1, userRepository.count());
+
     }
 
     @Test
     public void testUserLogin() throws Exception {
+
         mockMvc.perform(post("/users/register").
                 param("username", "tonka").
                 param("firstName", "Tonka").
@@ -162,6 +177,7 @@ public class UserControllerMock {
                 .with(csrf())
         ).andExpect(redirectedUrl("/"));
         assertEquals(2, userRepository.count());
+
     }
 
     @Test
@@ -191,7 +207,8 @@ public class UserControllerMock {
                 param("username", "tonka").
                 param("password", "topsecret")
                 .with(csrf())
-        ).andExpect(redirectedUrl( "http://localhost/users/login"));
+        ).andExpect(redirectedUrl("http://localhost/users/login"));
+
     }
 
     @Test
@@ -203,98 +220,90 @@ public class UserControllerMock {
                 andExpect(view().name("user-home"));
 
 
-
     }
-/*
-    @Test
-    public void testProfileEditView() throws Exception {
 
-        mockMvc.perform(post("/users/profile").
-                        with(user(user)).
-                        with(csrf())).
-                andExpect(status().is(300)).
-                andExpect(view().name( "redirect:/users/profile"));
-
-
-
-    }
-*/
     @Test
     public void testChangePassword() throws Exception {
+
         mockMvc.perform(get("/users/profile/changePassword").with(user(user))).
                 andExpect(status().isOk()).
                 andExpect(model().attributeExists("errorOldPassword")).
                 andExpect(view().name("user-password"));
+
     }
 
 
     @Test
     public void testResetPassword() throws Exception {
-        mockMvc.perform(get("/users/profile/resetPassword/"+1).
+
+        mockMvc.perform(get("/users/profile/resetPassword/" + 1).
                         with(user(user)).
                         with(csrf())).
-                andExpect(view().name( "redirect:/users"));
+                andExpect(view().name("redirect:/users"));
+
     }
 
     @Test
     public void testAddUser() throws Exception {
+
         mockMvc.perform(get("/users/add").
                         with(user(user)).
                         with(csrf())).
                 andExpect(model().attributeExists("isUsernameUnique")).
                 andExpect(model().attributeExists("isEmailUnique")).
                 andExpect(status().isOk()).
-                andExpect(view().name( "user-add"));
+                andExpect(view().name("user-add"));
 
     }
 
     @Test
     public void indexPageShown() throws Exception {
+
         mockMvc.perform(get("/users").
                         with(user(user)).
                         with(csrf())).
                 andExpect(model().attributeExists("getAllUsers")).
                 andExpect(status().isOk()).
-                andExpect(view().name( "user-index"));
+                andExpect(view().name("user-index"));
+
 
     }
 
     @Test
     public void testDeleteUser() throws Exception {
+
         mockMvc.perform(get("/users/delete/" + 1).
                         with(user(user)).
                         with(csrf())).
                 andExpect(status().is3xxRedirection()).
-                andExpect(view().name( "redirect:/users"));
+                andExpect(view().name("redirect:/users"));
+
 
     }
 
     @Test
     public void testDeleteLoggedUser() throws Exception {
+
         mockMvc.perform(get("/users/delete/" + addedBy.getId()).
                         with(user(user)).
                         with(csrf())).
                 andExpect(status().is3xxRedirection()).
-                andExpect(view().name( "redirect:/users/logout"));
+                andExpect(view().name("redirect:/users/logout"));
+
     }
 
     @Test
     public void testEditUser() throws Exception {
+
         mockMvc.perform(get("/users/edit/" + 1).
                         with(user(user)).
                         with(csrf())).
                 andExpect(status().isOk()).
                 andExpect(model().attributeExists("userEditBindingModel")).
                 andExpect(model().attributeExists("userId")).
-                andExpect(view().name( "user-edit"));
+                andExpect(view().name("user-edit"));
+
     }
-
-
-
-
-
-
-
 
 
 }

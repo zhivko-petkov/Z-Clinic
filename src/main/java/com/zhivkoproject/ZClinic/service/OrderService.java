@@ -20,5 +20,4 @@ public interface OrderService {
 
     void deleteResultInOrders(Long id);
 
-    void addOrder(OrderAddBindingModel orderAddBindingModel);
 }

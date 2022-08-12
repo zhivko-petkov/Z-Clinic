@@ -187,8 +187,5 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    @Override
-    public void addOrder(OrderAddBindingModel orderAddBindingModel) {
 
-    }
 }
