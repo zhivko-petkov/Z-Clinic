@@ -213,8 +213,8 @@ public class NewsControllerMock {
         mockMvc.perform(get("/news/delete/" + news.getId()).
                         with(user(user))
                 ).
-                andExpect(status().is(200)).
-                andExpect(view().name("news-index"));
+                andExpect(status().is3xxRedirection()).
+                andExpect(view().name("redirect:/news"));
     }
 
     @Test

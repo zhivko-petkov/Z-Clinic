@@ -42,7 +42,7 @@
                   </div>
                   <div>
                     <div class="col-auto">
-                      <label for="inputfirstName" class="col-form-label text-dark">FirstName</label>
+                      <label for="inputfirstName" class="col-form-label text-dark">First name</label>
                     </div>
                     <div class="col-auto">
                       <input th:field="*{firstName}"
@@ -50,7 +50,7 @@
                              type="text" name="firstName" id="inputfirstName" class="form-control"
                              aria-describedby="firstNameHelpInline">
                       <div class="invalid-feedback col-auto">
-                        <small id="firstNameError" class="text-light form-text bg-danger rounded">First Name length
+                        <small id="firstNameError" class="text-light form-text bg-danger rounded">First name length
                           must be more
                           than 3
                           characters</small>
@@ -113,6 +113,7 @@
                       <div class="col-auto">
                         <label for="inputAdditionalDetails" class="col-form-label text-dark">Additional
                           details</label>
+                        <small class="text-muted">(optional)</small>
                       </div>
                       <div class="col-auto">
                         <input th:field="*{additionalDetails}"
