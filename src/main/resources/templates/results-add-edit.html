@@ -13,7 +13,7 @@
 
   <!--ADD/EDIT RESULT-->
   <main class="p-5 bg-blur text-center my-main">
-    <h1 class="text-dark border-bottom">Add Result On Current User</h1>
+    <h1 class="text-dark border-bottom">Add Result</h1>
     <div class="d-flex justify-content-center">
       <form th:action="@{/result/save}"
             th:object="${form}"
@@ -30,7 +30,7 @@
 
             <label th:text="${res.getTest().name}"></label>
             <input th:field="*{resultsAdd[__${itemStat.index}__].result}"
-                   type="number" class="form-control">
+                   type="number" step="any" class="form-control">
             <small class="form-text bg-danger rounded invalid-feedback">Result must be positive decimal.</small>
 
           </div>

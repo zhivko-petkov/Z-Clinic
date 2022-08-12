@@ -162,7 +162,8 @@
                     </div>
                   </div>
 
-                  <div class="col-auto mt-2">
+
+                  <div class="col-auto mt-2" sec:authorize="hasAnyRole('ROLE_ADMIN')">
                     <label for="userRole">Role</label>
                     <select th:field="*{role}"
                             th:errorclass="is-invalid"
@@ -176,6 +177,39 @@
                     <small id="typeError" class="form-text text-light bg-danger rounded invalid-feedback">You must select type of
                       user</small>
                   </div>
+
+                  <div class="col-auto mt-2" sec:authorize="hasAnyRole('ROLE_MODERATOR')">
+                    <label for="userRole">Role</label>
+                    <select th:field="*{role}"
+                            th:errorclass="is-invalid"
+                            class="browser-default custom-select form-control" id="userRole" name="userRole">
+                      <option value="">Select role</option>
+                      <option th:each="c : ${T(com.zhivkoproject.ZClinic.model.enums.UserRoleEnum).values()}"
+                              th:if="${c.equals(c.DOCTOR) || c.equals(c.MODERATOR) || c.equals(c.STANDART)}"
+                              th:value="${c}"
+                              th:text="${c}">
+                      </option>
+                    </select>
+                    <small id="typeError" class="form-text text-light bg-danger rounded invalid-feedback">You must select type of
+                      user</small>
+                  </div>
+
+                  <div class="col-auto mt-2" sec:authorize="hasAnyRole('ROLE_DOCTOR')">
+                    <label for="userRole">Role</label>
+                    <select th:field="*{role}"
+                            th:errorclass="is-invalid"
+                            class="browser-default custom-select form-control" id="userRole" name="userRole">
+                      <option value="">Select role</option>
+                      <option th:each="c : ${T(com.zhivkoproject.ZClinic.model.enums.UserRoleEnum).values()}"
+                              th:if="${c.equals(c.DOCTOR) || c.equals(c.STANDART)}"
+                              th:value="${c}"
+                              th:text="${c}">
+                      </option>
+                    </select>
+                    <small id="typeError" class="form-text text-light bg-danger rounded invalid-feedback">You must select type of
+                      user</small>
+                  </div>
+
 
 
                   <div class="d-flex justify-content-center mt-4">
