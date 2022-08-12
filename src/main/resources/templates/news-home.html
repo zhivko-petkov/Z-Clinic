@@ -9,16 +9,16 @@
 <!--Navbar-->
 <nav th:replace="~{fragments/commons::navbar}"></nav>
 
-  <section class="mbr-section content6 cid-qweqpA5jv6" id="content6-1a" data-rv-view="6123">
+  <section class="pt-5 pb-5">
 
-    <section class="p-5">
+    <section class="p-4">
       <div class="container">
         <div class="row align-items-center justify-content-between">
 
-          <div class="col-md p-5">
+          <div class="col-md">
             <h2 th:text="*{news.getTitle().toUpperCase()}"></h2>
             <p th:text="*{news.getCreatedOn()}" class="text-secondary"><span th:text="'by' + *{news.getAddedBy().username}" class="text-primary"></span></p>
-            <p th:text="*{news.getContent()}" class="lead">
+            <p th:text="*{news.getContent()}">
             </p>
           </div>
           <div class="col-md">
