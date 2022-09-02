@@ -30,6 +30,12 @@ dependencies {
     implementation 'org.webjars.bowergithub.gthmb:apod-request:0.0.7'
     implementation 'junit:junit:4.13.1'
 
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.24'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
 // test
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,11 +1,18 @@
 package com.zhivkoproject.ZClinic.model.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "tests")
+@NoArgsConstructor
+@Data
+@Setter
 public class Test extends BaseEntity{
     @Column(nullable = false)
     private String name;
@@ -32,70 +39,5 @@ public class Test extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User addedBy;
 
-    public Test() {
-    }
 
-    public boolean isDelay() {
-        return isDelay;
-    }
-
-    public void setDelay(boolean delay) {
-        isDelay = delay;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public User getAddedBy() {
-        return addedBy;
-    }
-
-    public void setAddedBy(User addedBy) {
-        this.addedBy = addedBy;
-    }
-
-    public boolean isOffer() {
-        return isOffer;
-    }
-
-    public void setOffer(boolean offer) {
-        isOffer = offer;
-    }
-
-    public List<Result> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
 }
