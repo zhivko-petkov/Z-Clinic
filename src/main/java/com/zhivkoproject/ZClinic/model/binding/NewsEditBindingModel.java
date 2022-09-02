@@ -3,6 +3,7 @@ package com.zhivkoproject.ZClinic.model.binding;
 import javax.validation.constraints.Size;
 
 public class NewsEditBindingModel {
+    //kkk
     private Long id;
 
     @Size(min = 5, max = 100)
