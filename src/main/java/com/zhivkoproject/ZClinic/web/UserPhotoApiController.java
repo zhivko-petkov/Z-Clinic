@@ -2,6 +2,7 @@ package com.zhivkoproject.ZClinic.web;
 
 import com.zhivkoproject.ZClinic.model.service.UserServiceModel;
 import com.zhivkoproject.ZClinic.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@AllArgsConstructor
 public class UserPhotoApiController {
     private final UserService userService;
 
-
-    public UserPhotoApiController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/api/loggedUserPhoto")
     @Transactional

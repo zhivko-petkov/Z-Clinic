@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "carts")
 @Data
-@Setter
 @NoArgsConstructor
 public class Cart extends BaseEntity{
     @ManyToOne(optional = false)

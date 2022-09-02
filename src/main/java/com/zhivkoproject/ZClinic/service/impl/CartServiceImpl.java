@@ -4,6 +4,7 @@ import com.zhivkoproject.ZClinic.model.entity.*;
 import com.zhivkoproject.ZClinic.model.service.CartServiceModel;
 import com.zhivkoproject.ZClinic.repository.*;
 import com.zhivkoproject.ZClinic.service.CartService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final TestRepository testRepository;
@@ -22,14 +24,7 @@ public class CartServiceImpl implements CartService {
 
     private final ModelMapper modelMapper;
 
-    public CartServiceImpl(CartRepository cartRepository, TestRepository testRepository, UserRepository userRepository, OrderRepository orderRepository, ResultRepository resultRepository, ModelMapper modelMapper) {
-        this.cartRepository = cartRepository;
-        this.testRepository = testRepository;
-        this.userRepository = userRepository;
-        this.orderRepository = orderRepository;
-        this.resultRepository = resultRepository;
-        this.modelMapper = modelMapper;
-    }
+
 
     @Override
     public void addMedicalTestsInCart(Long medicalTestId, String username) {

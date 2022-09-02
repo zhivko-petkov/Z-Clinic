@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "tests")
 @NoArgsConstructor
 @Data
-@Setter
 public class Test extends BaseEntity{
     @Column(nullable = false)
     private String name;

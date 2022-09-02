@@ -5,6 +5,7 @@ import com.zhivkoproject.ZClinic.model.binding.NewsEditBindingModel;
 import com.zhivkoproject.ZClinic.model.binding.NewsSearchBindingModel;
 import com.zhivkoproject.ZClinic.model.service.NewsServiceModel;
 import com.zhivkoproject.ZClinic.service.NewsService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,15 +19,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/news")
 public class NewsController {
     private final NewsService newsService;
     private final ModelMapper modelMapper;
 
-    public NewsController(NewsService newsService, ModelMapper modelMapper) {
-        this.newsService = newsService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping()
     public String index(Model model) {

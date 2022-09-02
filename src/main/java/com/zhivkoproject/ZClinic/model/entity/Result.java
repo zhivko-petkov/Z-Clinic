@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @Entity(name = "results")
 @NoArgsConstructor
 @Data
-@Setter
 public class Result extends BaseEntity{
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     private Test test;

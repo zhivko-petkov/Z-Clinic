@@ -1,10 +1,13 @@
 package com.zhivkoproject.ZClinic.model.user;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-
 
 public class ZClinicUserDetails implements UserDetails {
     private final String password;

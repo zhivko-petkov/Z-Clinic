@@ -4,6 +4,7 @@ import com.zhivkoproject.ZClinic.model.service.OrderServiceModel;
 import com.zhivkoproject.ZClinic.service.OrderService;
 import com.zhivkoproject.ZClinic.service.TestService;
 import com.zhivkoproject.ZClinic.service.UserService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
@@ -25,13 +27,6 @@ public class OrderController {
     private final UserService userService;
     private final TestService testService;
 
-    public OrderController(OrderService orderService, ModelMapper modelMapper, UserService userService, TestService testService) {
-        this.orderService = orderService;
-        this.modelMapper = modelMapper;
-        this.userService = userService;
-        this.testService = testService;
-    }
-//fixec security bug for users edit
 
 
     @GetMapping()

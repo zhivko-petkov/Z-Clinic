@@ -2,23 +2,18 @@ package com.zhivkoproject.ZClinic.model.binding;
 
 import com.zhivkoproject.ZClinic.model.entity.Result;
 import com.zhivkoproject.ZClinic.model.service.ResultServiceModel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@Data
 public class ResultAddBindingModel {
     private List<ResultServiceModel> resultsAdd;
 
-    public ResultAddBindingModel() {
-    }
-
-    public List<ResultServiceModel> getResultsAdd() {
-        return resultsAdd;
-    }
-
-    public void setResultsAdd(List<ResultServiceModel> resultsAdd) {
-        this.resultsAdd = resultsAdd;
-    }
 
     public void addResult(ResultServiceModel resultServiceModel){
         if (this.resultsAdd == null){

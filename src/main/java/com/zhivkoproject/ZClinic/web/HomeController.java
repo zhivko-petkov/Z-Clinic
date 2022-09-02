@@ -8,6 +8,7 @@ import com.zhivkoproject.ZClinic.service.NewsService;
 import com.zhivkoproject.ZClinic.service.SubscriptionService;
 import com.zhivkoproject.ZClinic.service.TestService;
 import com.zhivkoproject.ZClinic.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
@@ -26,18 +27,12 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class HomeController {
     private final UserService userService;
     private final TestService testService;
     private final NewsService newsService;
     private final SubscriptionService subscriptionService;
-
-    public HomeController(UserService userService, TestService testService, NewsService newsService, SubscriptionService subscriptionService) {
-        this.userService = userService;
-        this.testService = testService;
-        this.newsService = newsService;
-        this.subscriptionService = subscriptionService;
-    }
 
     @GetMapping("/about")
     public String about() {

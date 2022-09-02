@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "users")
 @NoArgsConstructor
 @Data
-@Setter
 public class User extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String username;

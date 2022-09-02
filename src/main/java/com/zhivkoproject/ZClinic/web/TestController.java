@@ -11,6 +11,7 @@ import com.zhivkoproject.ZClinic.service.CartService;
 import com.zhivkoproject.ZClinic.service.OrderService;
 import com.zhivkoproject.ZClinic.service.ResultService;
 import com.zhivkoproject.ZClinic.service.TestService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,24 +32,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/tests")
+@AllArgsConstructor
 public class TestController {
     private final TestService testService;
     private final ResultService resultService;
     private final OrderService orderService;
     private final CartService cartService;
     private final ModelMapper modelMapper;
-
-    public TestController(TestService testService,
-                          ResultService resultService,
-                          OrderService orderService,
-                          CartService cartService,
-                          ModelMapper modelMapper) {
-        this.testService = testService;
-        this.resultService = resultService;
-        this.orderService = orderService;
-        this.cartService = cartService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping()
     public String index(@AuthenticationPrincipal UserDetails userDetails,

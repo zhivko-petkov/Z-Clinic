@@ -1,6 +1,7 @@
 package com.zhivkoproject.ZClinic.web;
 
 import com.zhivkoproject.ZClinic.service.ResultService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +13,10 @@ import java.time.LocalDate;
 import java.util.Map;
 
 @RestController
+@AllArgsConstructor
 public class CovidApiController {
     private final ResultService resultService;
 
-
-    public CovidApiController(ResultService resultService) {
-        this.resultService = resultService;
-    }
 
     @GetMapping("/api/covidInLab")
     @Transactional

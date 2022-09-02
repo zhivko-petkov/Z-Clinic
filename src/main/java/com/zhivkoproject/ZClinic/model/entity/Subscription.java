@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Table(name = "subscriptions")
 @NoArgsConstructor
 @Data
-@Setter
 public class Subscription extends BaseEntity {
     @Column(nullable = false)
     private String email;

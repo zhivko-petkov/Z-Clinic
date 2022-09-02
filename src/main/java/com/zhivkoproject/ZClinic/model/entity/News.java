@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @Table(name = "news")
 @NoArgsConstructor
 @Data
-@Setter
 public class News extends BaseEntity{
     @Column(nullable = false)
     private String title;

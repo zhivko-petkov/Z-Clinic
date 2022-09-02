@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Table(name = "categories")
 @Data
 @NoArgsConstructor
-@Setter
 public class Category extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private CategoryEnum categoryEnum;

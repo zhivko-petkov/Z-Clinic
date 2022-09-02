@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
-
     @Transactional
     @Query("select u from UserRole u where u.userRole = ?1")
     UserRole findByUserRole(UserRoleEnum userRole);

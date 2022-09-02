@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "orders")
 @NoArgsConstructor
 @Data
-@Setter
 public class Order extends BaseEntity{
     @ManyToOne
     private User user;

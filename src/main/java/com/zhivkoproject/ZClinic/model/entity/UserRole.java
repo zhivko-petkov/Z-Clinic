@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_roles")
 @Data
-@Setter
 public class UserRole extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

@@ -5,6 +5,7 @@ import com.zhivkoproject.ZClinic.model.binding.UserEditBindingModel;
 import com.zhivkoproject.ZClinic.model.service.ResultServiceModel;
 import com.zhivkoproject.ZClinic.service.OrderService;
 import com.zhivkoproject.ZClinic.service.ResultService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,19 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/result")
 public class ResultController {
     private final ResultService resultService;
     private final OrderService orderService;
     private final ModelMapper modelMapper;
-
-    public ResultController(ResultService resultService,
-                            OrderService orderService,
-                            ModelMapper modelMapper) {
-        this.resultService = resultService;
-        this.orderService = orderService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping("/order/{id}")
     public String index(@PathVariable Long id,

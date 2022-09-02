@@ -7,6 +7,7 @@ import com.zhivkoproject.ZClinic.model.enums.UserRoleEnum;
 import com.zhivkoproject.ZClinic.model.service.MedicalTestServiceModel;
 import com.zhivkoproject.ZClinic.model.service.UserServiceModel;
 import com.zhivkoproject.ZClinic.service.UserService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,15 +29,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper) {
-        this.userService = userService;
-        this.modelMapper = modelMapper;
-    }
 
     @ModelAttribute("userBindingModel")
     public UserRegisterBindingModel initUserModel() {
