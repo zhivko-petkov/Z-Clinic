@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public class MedicalTestAddBindingModel {
-
+//ccvcvc
     @NotEmpty
     @Size(min = 3)
     private String name;
